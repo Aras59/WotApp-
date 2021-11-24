@@ -1,18 +1,27 @@
 package com.example.wotapp
 
+import accounts.Players
 import android.os.Bundle
-import android.widget.TextView
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var url: URL
     override fun onCreate(savedInstanceState: Bundle?) {
-        url = URL("https://api.worldoftanks.eu/wot/account/list/?application_id=098b54f4d269cc5f29f074e671fdcc00&search=Lody_z_posypkom")
-        val myConnection: HttpsURLConnection = url.openConnection() as HttpsURLConnection
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val spinner:Spinner = findViewById(R.id.spinner)
+        if(spinner != null) {
+            val adapter = ArrayAdapter.createFromResource(this,R.array.regions, android.R.layout.simple_dropdown_item_1line)
+            spinner.adapter = adapter
+        }
+        val nicknamePlain:EditText = findViewById(R.id.nicknamePlain)
+        val searchButton:Button = findViewById(R.id.searchButton)
     }
 
+    fun onClick(){
+
+    }
 }

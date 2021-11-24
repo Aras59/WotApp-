@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WotApp</string>
+    
+    <string-array name="regions">
+        <item>EU</item>
+        <item>RU</item>
+        <item>ASIA</item>
+        <item>NA</item>
+    </string-array>
 </resources>
