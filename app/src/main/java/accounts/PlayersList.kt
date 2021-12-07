@@ -2,6 +2,6 @@ package accounts
 
 import com.google.gson.annotations.Expose
 
-data class PList(
+data class PlayersList(
     val data: List<Players>
 )
