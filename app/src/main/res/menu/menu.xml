@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id = "@+id/ic_player"
+        android:icon = "@drawable/ic_baseline_emoji_people_24"
+        android:title= "Players"
+        />
+    <item
+        android:id = "@+id/ic_clan"
+        android:icon = "@drawable/ic_baseline_people_alt_24"
+        android:title= "Clans"
+        />
+    <item
+        android:id = "@+id/ic_forum"
+        android:icon = "@drawable/ic_baseline_forum_24"
+        android:title= "Forum"
+        />
+
+</menu>
