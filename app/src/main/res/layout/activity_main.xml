@@ -4,40 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#2C2B2B"
     tools:context=".MainActivity">
 
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:background="#1E1E1E"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView2"
-            android:layout_width="160dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:maxLength="24"
-            android:minHeight="48dp" />
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="220sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#1E1E1E"
+            android:hint="Player Nickname"
+            android:minHeight="48dp"
+            android:textAlignment="textStart"
+            android:textColor="#FFFEFE"
+            android:textSize="22sp" />
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="80dp"
+            android:layout_width="60sp"
             android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:background="#1E1E1E"
+            android:textAlignment="center"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/searchButton"
-            android:layout_width="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:icon="@android:drawable/ic_menu_search" />
+            android:background="@color/purple_200"
+            app:icon="@android:drawable/ic_menu_search"
+            app:iconTint="#FFFFFF"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
@@ -46,10 +60,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
+        android:textColor="#FFFDFD"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.205" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_200"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
