@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/WotApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2890625" />
-        <entry key="..\:/WotApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_clan.xml" value="0.16145833333333334" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_forum.xml" value="0.16145833333333334" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player.xml" value="0.16145833333333334" />
         <entry key="..\:/WotApp/app/src/main/res/menu/menu.xml" value="0.27291666666666664" />
       </map>
     </option>

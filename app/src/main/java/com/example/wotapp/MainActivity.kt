@@ -1,6 +1,7 @@
 package com.example.wotapp
 
 import accounts.*
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,11 @@ import android.widget.TextView
 import android.text.Editable
 
 import android.text.TextWatcher
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import fragments.ClanFragment
+import fragments.ForumFragment
+import fragments.PlayerFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +31,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nicknameSearch:AutoCompleteTextView
     private var nickname:String = ""
     private var account_id:String = ""
+    private val playerFragment = PlayerFragment()
+    private val clanFragment = ClanFragment()
+    private val forumFragment = ForumFragment()
+    private lateinit var bottomNavigationView:BottomNavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +49,17 @@ class MainActivity : AppCompatActivity() {
         textView = findViewById(R.id.textview)
         nicknameSearch = findViewById(R.id.autoCompleteTextView)
 
+        replaceFragment(playerFragment)
+        bottomNavigationView = findViewById(R.id.bottom_nav)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.ic_player -> replaceFragment(playerFragment)
+                R.id.ic_clan -> replaceFragment(clanFragment)
+                R.id.ic_forum -> replaceFragment(forumFragment)
+            }
+            true
+        }
 
 
         var playersInterface = PlayersInterface.create().getPlayers("")
@@ -90,6 +111,17 @@ class MainActivity : AppCompatActivity() {
 
                 })
             }
+        }
+
+
+
+    }
+
+    private fun replaceFragment(fragment: Fragment){
+        if(fragment!=null){
+            val tran = supportFragmentManager.beginTransaction()
+            tran.replace(R.id.fragments_view,fragment)
+            tran.commit()
         }
     }
 
