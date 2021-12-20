@@ -27,7 +27,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:background="#1E1E1E"
-                android:hint="Clan Name"
+                android:hint="Clan Tag"
                 android:minHeight="48dp"
                 android:textAlignment="textStart"
                 android:textColor="#FFFEFE"

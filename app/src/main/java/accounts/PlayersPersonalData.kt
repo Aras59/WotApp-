@@ -12,12 +12,42 @@ interface PlayersPersonalData {
 
     companion object {
 
-        var BASE_URL = "https://api.worldoftanks.eu"
+        var BASE_URL_EU = "https://api.worldoftanks.eu"
+        var BASE_URL_RU = "https://api.worldoftanks.ru"
+        var BASE_URL_ASIA = "https://api.worldoftanks.asia"
+        var BASE_URL_NA = "https://api.worldoftanks.com"
 
-        fun create() : PlayersPersonalData {
+        fun createEU() :  PlayersPersonalData {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BASE_URL)
+                .baseUrl(BASE_URL_EU)
+                .build()
+            return retrofit.create( PlayersPersonalData::class.java)
+
+        }
+
+        fun createRU() :  PlayersPersonalData {
+            val retrofit = Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BASE_URL_RU)
+                .build()
+            return retrofit.create( PlayersPersonalData::class.java)
+
+        }
+
+        fun createASIA() :  PlayersPersonalData {
+            val retrofit = Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BASE_URL_ASIA)
+                .build()
+            return retrofit.create( PlayersPersonalData::class.java)
+
+        }
+
+        fun createNA() :  PlayersPersonalData {
+            val retrofit = Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(BASE_URL_NA)
                 .build()
             return retrofit.create(PlayersPersonalData::class.java)
 
