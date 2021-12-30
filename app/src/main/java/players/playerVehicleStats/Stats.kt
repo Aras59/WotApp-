@@ -11,6 +11,7 @@ data class Stats(
     val mark_of_mastery: Int,
     val max_frags: Int,
     val max_xp: Int,
+    val random: Random,
     val regular_team: RegularTeam,
     val stronghold_defense: StrongholdDefense,
     val stronghold_skirmish: StrongholdSkirmish,

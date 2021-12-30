@@ -10,8 +10,7 @@ import retrofit2.http.Query
 
 interface PlayersVehiclesInterface {
 
-
-    @GET("wot/tanks/stats/?application_id=098b54f4d269cc5f29f074e671fdcc00")
+    @GET("wot/tanks/stats/?application_id=098b54f4d269cc5f29f074e671fdcc00&extra=random")
     fun getPlayersVehiclesStats(@Query("account_id") account_id:String) : Call<VehicleStats>
 
     companion object {

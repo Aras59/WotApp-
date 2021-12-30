@@ -1,5 +1,6 @@
 package fragments
 
+import android.annotation.SuppressLint
 import players.playerstats.Player
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -38,6 +39,7 @@ class PlayerOverallStatsFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,7 +70,29 @@ class PlayerOverallStatsFragment : Fragment() {
         hitRatioView.text = " "+player.statistics.all.hits_percents.toString() + "%"
         piercingsShotsView.text = " "+player.statistics.all.piercings.toString()
         victoryBattlesView.text = " "+player.statistics.all.wins.toString()+" "
+        var wn8 = arguments?.getDouble("WN8")
+        if (wn8 != null) {
+            if(wn8<400.0){
+                wn8View.setTextColor(R.color.red)
+            }
+            if(wn8<859.0 && wn8>399.0){
+                wn8View.setTextColor(R.color.oragne)
+            }
+            if(wn8<1419.0 && wn8>858.0){
+                wn8View.setTextColor(R.color.yellow)
+            }
+            if(wn8<2104.0 && wn8>1418.0){
+                wn8View.setTextColor(R.color.green)
+            }
+            if(wn8<2769.0 && wn8>2103.0){
+                wn8View.setTextColor(R.color.blue)
+            }
+            if(wn8>2768.0){
+                wn8View.setTextColor(R.color.purple_500)
+            }
+        }
 
+        wn8View.text = wn8?.let { " "+BigDecimal(it).setScale(2,RoundingMode.HALF_EVEN).toString() }
         val simpleDateFormat = SimpleDateFormat("dd MMMM yyyy, HH:mm:ss", Locale.ENGLISH)
         createdView.text = " Created at: "+simpleDateFormat.format(player.created_at.toLong()*1000L).toString()
         lastGameView.text = " Last Battle at: "+simpleDateFormat.format(player.last_battle_time.toLong()*1000L).toString()

@@ -54,11 +54,12 @@
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <Button
+                    app:backgroundTint="@null"
                     android:id="@+id/searchButton"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@color/purple_200"
+                    android:colorBackground="@color/purple_200"
                     app:icon="@android:drawable/ic_menu_search"
                     app:iconTint="#FFFFFF"
                     tools:ignore="SpeakableTextPresentCheck" />
@@ -66,6 +67,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/nickLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/purple_200"
@@ -94,12 +96,12 @@
             </LinearLayout>
 
             <androidx.viewpager2.widget.ViewPager2
+                app:backgroundTint="@null"
                 android:id="@+id/playerDataPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10sp"
-                android:layout_marginBottom="5sp"
-                android:background="@color/purple_200" />
+                android:layout_marginBottom="5sp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
