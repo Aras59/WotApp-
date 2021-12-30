@@ -1,6 +1,7 @@
 package fragments
 
-import accounts.*
+import players.interfaces.PlayersInterface
+import players.interfaces.PlayersPersonalData
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,11 +12,19 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.example.wotapp.MainActivity
 import com.example.wotapp.R
+import players.interfaces.PlayersVehiclesInterface
+import players.playerstats.Datas
+import players.playerstats.Player
+import players.playerstats.PlayersList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.widget.Toast
+import calculatorWn8.Wn8Calculator
+import players.playerVehicleStats.Data
+import players.playerVehicleStats.VehicleStats
+
 
 class PlayerFragment : Fragment() {
 
@@ -28,6 +37,7 @@ class PlayerFragment : Fragment() {
     private var nickname:String = ""
     private var account_id:String = ""
     private lateinit var playerDataPager: ViewPager2
+    private lateinit var calculator: Wn8Calculator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +50,8 @@ class PlayerFragment : Fragment() {
         titleServerView = view.findViewById(R.id.titleServerView)
         searchButton = view.findViewById(R.id.searchButton)
         nicknameSearch = view.findViewById(R.id.playerAutoCompleteTextView)
+        calculator = arguments?.getSerializable("calculator") as Wn8Calculator
 
-        val fragments:ArrayList<Fragment> = arrayListOf(PlayerDataFragment(),PlayerDataFragment(),PlayerDataFragment())
-        val pagerAdapter = MyViewPagerAdapter(fragments, this.activity as AppCompatActivity)
-        playerDataPager = view.findViewById(R.id.playerDataPager)
-        playerDataPager.adapter = pagerAdapter
         spinner = view.findViewById(R.id.spinner)
 
         var adapter = activity?.let { ArrayAdapter.createFromResource(it,R.array.regions, R.layout.spinner_list) }
@@ -84,6 +91,10 @@ class PlayerFragment : Fragment() {
                                     account_id = response.body()?.data?.first()?.account_id.toString()!!
                                     nickname= response.body()?.data?.first()?.nickname!!
                                 }
+                            }else{
+                                account_id = ""
+                                nickname = ""
+                                Toast.makeText(activity,"Nie ma ",Toast.LENGTH_SHORT).show()
                             }
                         }
                         override fun onFailure(call: Call<PlayersList>, t: Throwable) {
@@ -91,10 +102,8 @@ class PlayerFragment : Fragment() {
                             nickname = ""
                         }
                     })
-
                 }
             }
-
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
@@ -102,6 +111,9 @@ class PlayerFragment : Fragment() {
 
         searchButton.setOnClickListener {
             if(nicknameSearch.text.length>nickLenght){
+
+                val fragments:ArrayList<Fragment> = arrayListOf(PlayerOverallStatsFragment(),PlayerOverallStatsFragment())
+
                 var playersPersonalDataInterface: Call<Datas>
                 if(spinner.selectedItem.toString().equals("EU")){
                     playersPersonalDataInterface = PlayersPersonalData.createEU().getPlayerPersonalData(account_id)
@@ -123,13 +135,37 @@ class PlayerFragment : Fragment() {
                 playersPersonalDataInterface.enqueue(object : Callback<Datas>{
                     override fun onResponse(call: Call<Datas>, response: Response<Datas>) {
                         if(response!=null){
+
+                            val playersVehiclesInterface: Call<VehicleStats>
+                            playersVehiclesInterface = PlayersVehiclesInterface.createEU().getPlayersVehiclesStats(account_id)
+                            playersVehiclesInterface.enqueue(object : Callback<VehicleStats>{
+                                override fun onResponse(call: Call<VehicleStats>, response: Response<VehicleStats>) {
+                                    println(response.body()?.stats?.get("514691088")?.first()?.account_id.toString())
+                                    val a = response.body()?.stats?.get("514691088")?.first()
+                                    println()
+
+
+                                }
+
+                                override fun onFailure(call: Call<VehicleStats>, t: Throwable) {
+                                    println("XDDDDD")
+                                }
+
+                            })
+
                             var player: Player? = response.body()?.player?.get(account_id)
                             if (player != null) {
                                 titleNickView.text = player.nickname
-                                if(player?.statistics?.all?.battles!=0){
-                                    Toast.makeText(activity,(player?.statistics?.all?.damage_dealt!! / player?.statistics?.all?.battles).toString(),Toast.LENGTH_SHORT).show()
-                                }else
-                                    Toast.makeText(activity,"0",Toast.LENGTH_SHORT).show()
+                                for(f in fragments){
+                                    val bundle = Bundle()
+                                    bundle.putSerializable("PlayerOverallStats",player)
+                                    f.arguments = bundle
+                                }
+                                val pagerAdapter = MyViewPagerAdapter(fragments, activity as AppCompatActivity)
+                                playerDataPager = view.findViewById(R.id.playerDataPager)
+                                playerDataPager.adapter = pagerAdapter
+                            }else{
+                                Toast.makeText(activity,"Nie ma takiego gracza",Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
@@ -140,6 +176,11 @@ class PlayerFragment : Fragment() {
 
             }
         }
+
+
+
+
+
         return view;
     }
 

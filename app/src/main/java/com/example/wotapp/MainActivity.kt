@@ -1,24 +1,20 @@
 package com.example.wotapp
 
-import accounts.*
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import android.widget.ArrayAdapter
 import android.widget.TextView
 
-import android.text.Editable
-
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
+import calculatorWn8.Wn8Calculator
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import fragments.ClanFragment
 import fragments.ForumFragment
 import fragments.PlayerFragment
+import com.google.gson.reflect.TypeToken
+import calculatorWn8.Wn8ExpValue
+import java.lang.reflect.Type
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +36,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val values: List<Wn8ExpValue> = readWn8File()
+        val calculator:Wn8Calculator = Wn8Calculator(values)
+        val bundle = Bundle()
+        bundle.putSerializable("calculator",calculator)
+        playerFragment.arguments = bundle
+        clanFragment.arguments = bundle
         bottomNavigationView = findViewById(R.id.bottom_nav)
         replaceFragment(playerFragment)
 
@@ -60,6 +62,18 @@ class MainActivity : AppCompatActivity() {
             tran.replace(R.id.fragments_view,fragment)
             tran.commit()
         }
+    }
+
+    private fun readWn8File():List<Wn8ExpValue>{
+        val input = applicationContext.assets.open("wn8exp.json")
+        val size = input.available()
+        val buffer = ByteArray(size)
+        input.read(buffer)
+        input.close()
+        val wn8text = String(buffer)
+        var gson = Gson()
+        val typeWN8: Type? = object : TypeToken<List<Wn8ExpValue?>?>() {}.type
+        return gson.fromJson(wn8text, typeWN8)
     }
 
 
