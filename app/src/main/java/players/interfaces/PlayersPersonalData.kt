@@ -1,11 +1,13 @@
 package players.interfaces
 
+import okhttp3.OkHttpClient
 import players.playerstats.Datas
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 interface PlayersPersonalData {
     @GET("wot/account/info/?application_id=098b54f4d269cc5f29f074e671fdcc00")
@@ -18,10 +20,18 @@ interface PlayersPersonalData {
         var BASE_URL_ASIA = "https://api.worldoftanks.asia"
         var BASE_URL_NA = "https://api.worldoftanks.com"
 
+        val client = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .callTimeout(30,TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build()
+
         fun createEU() : PlayersPersonalData {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL_EU)
+                .client(client)
                 .build()
             return retrofit.create( PlayersPersonalData::class.java)
 
@@ -31,6 +41,7 @@ interface PlayersPersonalData {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL_RU)
+                .client(client)
                 .build()
             return retrofit.create( PlayersPersonalData::class.java)
 
@@ -40,6 +51,7 @@ interface PlayersPersonalData {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL_ASIA)
+                .client(client)
                 .build()
             return retrofit.create( PlayersPersonalData::class.java)
 
@@ -49,6 +61,7 @@ interface PlayersPersonalData {
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BASE_URL_NA)
+                .client(client)
                 .build()
             return retrofit.create(PlayersPersonalData::class.java)
 

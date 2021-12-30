@@ -60,6 +60,7 @@ class PlayerFragment : Fragment() {
         titleServerView = view.findViewById(R.id.titleServerView)
         searchButton = view.findViewById(R.id.searchButton)
         nicknameSearch = view.findViewById(R.id.playerAutoCompleteTextView)
+        nicknameSearch.text.clear()
         nickLayout = view.findViewById(R.id.nickLayout)
         nickLayout.visibility=View.INVISIBLE
         calculator = arguments?.getSerializable("calculator") as Wn8Calculator
@@ -176,7 +177,7 @@ class PlayerFragment : Fragment() {
                                                 x+=temp.random.battles
                                                 wn8 += calculator.calulateWN8byTank(temp.tank_id,temp.random.battles,
                                                     temp.random.wins.toDouble(),temp.random.dropped_capture_points.toDouble(),
-                                                    temp.random.frags.toDouble(),temp.random.damage_dealt.toDouble(),500.0)*temp.random.battles
+                                                    temp.random.frags.toDouble(),temp.random.damage_dealt.toDouble(),temp.random.spotted.toDouble())*temp.random.battles
                                             }
                                         }
                                         wn8 = wn8/x
@@ -226,6 +227,7 @@ class PlayerFragment : Fragment() {
                                         }
                                         playerDataPager.adapter = pagerAdapter
                                         nickLayout.visibility=View.VISIBLE
+                                        nicknameSearch.text.clear()
                                     }else{
                                         Toast.makeText(activity,"Player doesn't exist!",Toast.LENGTH_LONG).show()
                                     }
@@ -248,21 +250,21 @@ class PlayerFragment : Fragment() {
 
             }
         }
-
-        spinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView: AdapterView<*>?,
-                selectedItemView: View,
-                position: Int,
-                id: Long
-            ) {
-                nicknameSearch.text.clear()
-            }
-
-            override fun onNothingSelected(parentView: AdapterView<*>?) {
-                nicknameSearch.text.clear()
-            }
-        }
+//
+//        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+//            override fun onItemSelected(
+//                parentView: AdapterView<*>?,
+//                selectedItemView: View,
+//                position: Int,
+//                id: Long
+//            ) {
+//                nicknameSearch.text.clear()
+//            }
+//
+//            override fun onNothingSelected(parentView: AdapterView<*>?) {
+//                nicknameSearch.text.clear()
+//            }
+//        }
 
         return view;
     }

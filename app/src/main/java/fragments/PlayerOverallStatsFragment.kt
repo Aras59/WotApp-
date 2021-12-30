@@ -103,7 +103,7 @@ class PlayerOverallStatsFragment : Fragment() {
             avgDmgView.text = " "+(player.statistics.all.damage_dealt/player.statistics.all.battles).toString()
             avgAsistView.text = " "+(player.statistics.all.avg_damage_assisted).toString()
             expView.text = " "+(player.statistics.all.xp/player.statistics.all.battles).toString()+" XP"
-            avgDestroyedTankView.text = " "+(player.statistics.all.frags/player.statistics.all.battles).toString()
+            avgDestroyedTankView.text = " "+BigDecimal((player.statistics.all.frags/player.statistics.all.battles).toDouble()).setScale(2,RoundingMode.HALF_EVEN).toString()
             piercingsShotsPerBattleView.text = " "+(player.statistics.all.piercings/player.statistics.all.battles).toString()+"shots"
         }else{
             avgDmgView.text = " "+"0"
