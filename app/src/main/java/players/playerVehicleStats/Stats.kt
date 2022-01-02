@@ -1,5 +1,7 @@
 package players.playerVehicleStats
 
+import java.io.Serializable
+
 data class Stats(
     val account_id: Int,
     val all: All,
@@ -17,4 +19,4 @@ data class Stats(
     val stronghold_skirmish: StrongholdSkirmish,
     val tank_id: Int,
     val team: Team
-)
+):Serializable

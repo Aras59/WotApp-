@@ -5,6 +5,7 @@ import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
 import okhttp3.TlsVersion
+import players.playerInfo.PlayerInfo
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,7 +16,7 @@ import java.util.*
 interface PlayersInterface {
 
     @GET("wot/account/list/?application_id=098b54f4d269cc5f29f074e671fdcc00&limit=8")
-    fun getPlayers(@Query("search") nickname:String,) : Call<PlayersList>
+    fun getPlayers(@Query("search") nickname:String,) : Call<PlayerInfo>
 
     companion object {
 

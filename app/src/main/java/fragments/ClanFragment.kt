@@ -38,6 +38,9 @@ class ClanFragment : Fragment() {
     private lateinit var clanNameView: TextView
     private lateinit var clanMottoView: TextView
     private lateinit var clanInfoTabs: TabLayout
+    private lateinit var clanDataLayout: LinearLayout
+    private lateinit var clanPagerLayout: LinearLayout
+    private lateinit var progressBar: ProgressBar
     private lateinit var clanPager: ViewPager2
     private var clanTag: String = ""
     private var clanID: String = ""
@@ -57,6 +60,12 @@ class ClanFragment : Fragment() {
         clanMottoView = view.findViewById(R.id.clanMotto)
         clanInfoTabs = view.findViewById(R.id.clanInfoTabs)
         clanPager = view.findViewById(R.id.clanPager)
+        clanDataLayout = view.findViewById(R.id.clanDataLayout)
+        clanDataLayout.visibility = View.INVISIBLE
+        clanPagerLayout = view.findViewById(R.id.clanPagerLayout)
+        clanPagerLayout.visibility = View.INVISIBLE
+        progressBar = view.findViewById(R.id.progressBar)
+        progressBar.visibility = View.INVISIBLE
 
         var adapter = activity?.let {
             ArrayAdapter.createFromResource(
@@ -104,6 +113,7 @@ class ClanFragment : Fragment() {
                         ) {
                             if (response != null) {
                                 if (response.body()?.data?.isNotEmpty() == true) {
+
                                     var clanTags: List<String> = emptyList()
                                     clanTags = response.body()?.data?.map { it.tag }!!
                                     var clanTagsAdapter = activity?.let {
@@ -186,11 +196,15 @@ class ClanFragment : Fragment() {
                                             response.body()?.data?.first()?.clan_id.toString()!!
                                         clanTag = response.body()?.data?.first()?.tag!!
                                     }
-                                }
-                                else {
-                                    Toast.makeText(activity, "Clan doesn't exist!", Toast.LENGTH_LONG).show()
+                                } else {
+                                    Toast.makeText(
+                                        activity,
+                                        "Clan doesn't exist!",
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
                             }
+
                             override fun onFailure(call: Call<ClanList>, t: Throwable) {}
                         })
                     }
@@ -200,6 +214,7 @@ class ClanFragment : Fragment() {
 
         searchButton.setOnClickListener {
             if (clanAutoCompleteTextView.text.length > 2) {
+                progressBar.visibility = View.VISIBLE
 
                 var clansInterface: Call<ClanList>
                 if (spinner.selectedItem.toString().equals("EU")) {
@@ -244,7 +259,8 @@ class ClanFragment : Fragment() {
                                     clanDetailsInterface =
                                         ClanDetailsInterface.createASIA().getClanDetails(clanID)
                                 } else {
-                                    clanDetailsInterface = ClanDetailsInterface.createNA().getClanDetails(clanID)
+                                    clanDetailsInterface =
+                                        ClanDetailsInterface.createNA().getClanDetails(clanID)
                                 }
 
                                 clanDetailsInterface.enqueue(object : Callback<ClanDetails> {
@@ -307,6 +323,13 @@ class ClanFragment : Fragment() {
                                                         clanID
                                                     )?.name
                                                 clanNameView.setTextColor(
+                                                    Color.parseColor(
+                                                        response.body()?.clan?.get(
+                                                            clanID
+                                                        )?.color
+                                                    )
+                                                )
+                                                searchButton.setBackgroundColor(
                                                     Color.parseColor(
                                                         response.body()?.clan?.get(
                                                             clanID
@@ -381,9 +404,16 @@ class ClanFragment : Fragment() {
                                                         )
                                                     for (f in fragments) {
                                                         val bundle = Bundle()
-                                                        if(parentRespond.body()?.clan?.get(clanID)?.members!=null ){
-                                                            val membersList = Members(parentRespond.body()?.clan?.get(clanID)?.members!!)
-                                                            bundle.putSerializable("MembersList",membersList)
+                                                        if (parentRespond.body()?.clan?.get(clanID)?.members != null) {
+                                                            val membersList = Members(
+                                                                parentRespond.body()?.clan?.get(
+                                                                    clanID
+                                                                )?.members!!
+                                                            )
+                                                            bundle.putSerializable(
+                                                                "MembersList",
+                                                                membersList
+                                                            )
                                                         }
                                                         bundle.putString(
                                                             "ClanDescription",
@@ -405,25 +435,44 @@ class ClanFragment : Fragment() {
                                                         bundle.putInt("Sh6elo", Sh6Elo)
 
                                                         if (parentRespond.body()?.clan?.get(clanID)?.accepts_join_requests != null)
-                                                            bundle.putBoolean("JoinRequest", parentRespond.body()?.clan?.get(clanID)?.accepts_join_requests!!)
+                                                            bundle.putBoolean(
+                                                                "JoinRequest",
+                                                                parentRespond.body()?.clan?.get(
+                                                                    clanID
+                                                                )?.accepts_join_requests!!
+                                                            )
                                                         else
                                                             bundle.putBoolean("JoinRequest", false)
-                                                            bundle.putString("ClanCreator", parentRespond.body()?.clan?.get(clanID)?.creator_name)
                                                         bundle.putString(
                                                             "ClanCreator",
                                                             parentRespond.body()?.clan?.get(clanID)?.creator_name
                                                         )
-                                                        if(parentRespond.body()?.clan?.get(clanID)?.members?.size!=null)
-                                                            bundle.putInt("ClanMembers", parentRespond.body()?.clan?.get(clanID)?.members?.size!!)
+                                                        bundle.putString(
+                                                            "ClanCreator",
+                                                            parentRespond.body()?.clan?.get(clanID)?.creator_name
+                                                        )
+                                                        if (parentRespond.body()?.clan?.get(clanID)?.members?.size != null)
+                                                            bundle.putInt(
+                                                                "ClanMembers",
+                                                                parentRespond.body()?.clan?.get(
+                                                                    clanID
+                                                                )?.members?.size!!
+                                                            )
 
-                                                        if (spinner.selectedItem.toString().equals("EU")) {
-                                                            bundle.putString("Server","EU")
-                                                        } else if (spinner.selectedItem.toString().equals("RU")) {
-                                                            bundle.putString("Server","RU")
-                                                        } else if (spinner.selectedItem.toString().equals("ASIA")) {
-                                                            bundle.putString("Server","ASIA")
+                                                        if (spinner.selectedItem.toString()
+                                                                .equals("EU")
+                                                        ) {
+                                                            bundle.putString("Server", "EU")
+                                                        } else if (spinner.selectedItem.toString()
+                                                                .equals("RU")
+                                                        ) {
+                                                            bundle.putString("Server", "RU")
+                                                        } else if (spinner.selectedItem.toString()
+                                                                .equals("ASIA")
+                                                        ) {
+                                                            bundle.putString("Server", "ASIA")
                                                         } else {
-                                                            bundle.putString("Server","NA")
+                                                            bundle.putString("Server", "NA")
                                                         }
 
                                                         f.arguments = bundle
@@ -444,6 +493,9 @@ class ClanFragment : Fragment() {
 
 
                                                     clanAutoCompleteTextView.text.clear()
+                                                    progressBar.visibility = View.INVISIBLE
+                                                    clanDataLayout.visibility = View.VISIBLE
+                                                    clanPagerLayout.visibility = View.VISIBLE
                                                     clanID = ""
                                                     clanTag = ""
                                                 }
@@ -460,17 +512,17 @@ class ClanFragment : Fragment() {
 
                                     override fun onFailure(call: Call<ClanDetails>, t: Throwable) {
                                     }
-
                                 })
-
                             }
                         } else {
-                            Toast.makeText(activity, "Clan doesn't exist!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(activity, "Clan doesn't exist!", Toast.LENGTH_LONG)
+                                .show()
                         }
                     }
 
                     override fun onFailure(call: Call<ClanList>, t: Throwable) {
-                        Toast.makeText(activity, "Network Connection Problem!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity, "Network Connection Problem!", Toast.LENGTH_LONG)
+                            .show()
                     }
                 })
 

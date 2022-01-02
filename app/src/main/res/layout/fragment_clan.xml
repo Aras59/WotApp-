@@ -14,6 +14,7 @@
         android:layout_marginRight="5dp">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -70,6 +71,7 @@
                 android:id="@+id/clanDataLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#1E1E1E"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -102,6 +104,7 @@
                                 android:id="@+id/clanMotto"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:maxWidth="300sp"
                                 android:text="Motto"
                                 android:textColor="#FFFFFF"
                                 android:textSize="18sp" />
@@ -136,16 +139,21 @@
                         android:id="@+id/clanInfoTabs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5sp">
+                        android:layout_marginTop="5sp"
+                        android:background="@drawable/border"
+                        app:tabIndicatorColor="#FFFFFF"
+                        app:tabTextColor="#FFFFFF">
 
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/border"
                             android:text="Description" />
 
                         <com.google.android.material.tabs.TabItem
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/border"
                             android:text="Clan Members" />
 
                     </com.google.android.material.tabs.TabLayout>
@@ -153,12 +161,26 @@
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/clanPager"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border" />
 
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

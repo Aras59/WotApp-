@@ -8,7 +8,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="70sp"
         android:background="#1E1E1E">
 
         <LinearLayout
@@ -23,9 +22,9 @@
                 android:background="@drawable/border">
 
                 <TableRow
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -46,9 +45,9 @@
                 </TableRow>
 
                 <TableRow
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -64,14 +63,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="NickName"
-                        android:textSize="18sp"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
                 </TableRow>
 
                 <TableRow
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
 
                     <TextView
                         android:id="@+id/textView16"
@@ -93,9 +92,9 @@
                 </TableRow>
 
                 <TableRow
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
 
                     <TextView
                         android:id="@+id/clanMembers"
@@ -118,9 +117,9 @@
                 </TableRow>
 
                 <TableRow
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -141,9 +140,9 @@
                 </TableRow>
 
                 <TableRow
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -164,9 +163,9 @@
                 </TableRow>
 
                 <TableRow
-                    android:background="@drawable/border"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -190,8 +189,9 @@
             <TextView
                 android:id="@+id/clanDesc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="5sp"
+                android:layout_marginBottom="60sp"
                 android:text="@string/hello_blank_fragment"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp" />

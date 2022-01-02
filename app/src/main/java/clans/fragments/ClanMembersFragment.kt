@@ -1,6 +1,5 @@
 package clans.fragments
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,16 +12,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import clans.clandetails.Members
 import com.example.wotapp.R
-import android.widget.LinearLayout
 import calculatorWn8.Wn8Calculator
 import calculatorWn8.Wn8ExpValue
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import players.interfaces.PlayersVehiclesInterface
-import players.playerVehicleStats.VehicleStats
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.reflect.Type
 
 
@@ -44,9 +37,12 @@ class ClanMembersFragment : Fragment() {
         val calculator:Wn8Calculator = Wn8Calculator(values)
 
         val memberList: Members = arguments?.getSerializable("MembersList") as Members
+        val sortOrder = listOf("commander", "executive_officer","personnel_officer","combat_officer","intelligence_officer","recruitment_officer","junior_officer","private","recruit")
         if(memberList.membersList!=null){
             var i:Int = 1
-            for(member in memberList.membersList){
+            val sortedlist = memberList.membersList.sortedBy { sortOrder.indexOf(it.role) }
+
+            for(member in sortedlist){
                 val tablerow: TableRow = TableRow(activity)
                 tablerow.background = resources.getDrawable(R.drawable.border)
 
@@ -74,7 +70,7 @@ class ClanMembersFragment : Fragment() {
 
                 index.text = " "+i.toString()+". "
                 nickname.text = " "+member.account_name
-                clanRang.text = " "+member.role
+                clanRang.text = " "+member.role.capitalize().replace("_"," ")
                 i++
                 tablerow.addView(index)
                 tablerow.addView(nickname)
