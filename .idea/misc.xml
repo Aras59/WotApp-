@@ -7,9 +7,11 @@
         <entry key="..\:/WotApp/app/src/main/res/drawable/ic_baseline_emoji_people_24.xml" value="0.2890625" />
         <entry key="..\:/WotApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2890625" />
         <entry key="..\:/WotApp/app/src/main/res/layout/activity_main.xml" value="0.16" />
-        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_clan.xml" value="0.16145833333333334" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_clan.xml" value="0.25" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_clan_description.xml" value="0.22" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_clan_members.xml" value="0.22" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_forum.xml" value="0.16145833333333334" />
-        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player.xml" value="0.16145833333333334" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player.xml" value="0.1" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player_data.xml" value="0.2046875" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player_overall_stats.xml" value="0.33" />
         <entry key="..\:/WotApp/app/src/main/res/layout/spinner_list.xml" value="0.13272543059777103" />

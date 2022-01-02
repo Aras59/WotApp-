@@ -1,5 +1,11 @@
 package calculatorWn8
 
+import android.annotation.SuppressLint
+import players.interfaces.PlayersVehiclesInterface
+import players.playerVehicleStats.VehicleStats
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.Serializable
 import java.lang.Double.max
 import java.lang.Double.min
@@ -37,6 +43,5 @@ class Wn8Calculator: Serializable {
         }
         return 0.0
     }
-
-
+    
 }
