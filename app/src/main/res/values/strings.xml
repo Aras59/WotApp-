@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">WotApp</string>
-    
+
     <string-array name="regions">
         <item>EU</item>
         <item>RU</item>
         <item>ASIA</item>
         <item>NA</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
