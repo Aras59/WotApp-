@@ -30,6 +30,8 @@ import clans.interfaces.ClanDetailsInterface
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import okhttp3.ResponseBody
+import players.framents.PlayerStatsFragment
+import players.framents.PlayerVehicleFragment
 import players.playerInfo.PlayerInfo
 import players.playerVehicleStats.ListStats
 
@@ -123,12 +125,9 @@ class PlayerFragment : Fragment() {
                                     var nicknamesAdapter = activity?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_1, nicknames) }
                                     nicknameSearch.setAdapter(nicknamesAdapter)
                                 }
-                            }else{
-                                Toast.makeText(activity,"Wrong Nickname!",Toast.LENGTH_SHORT).show()
                             }
                         }
-                        override fun onFailure(call: Call<PlayerInfo>, t: Throwable) {
-                        }
+                        override fun onFailure(call: Call<PlayerInfo>, t: Throwable) {}
                     })
                 }
             }
@@ -287,7 +286,10 @@ class PlayerFragment : Fragment() {
                                                             wn8 = wn8/x
                                                         }
                                                         val bundle = Bundle()
-                                                        val fragments:ArrayList<Fragment> = arrayListOf(PlayerStatsFragment(),PlayerVehicleFragment())
+                                                        val fragments:ArrayList<Fragment> = arrayListOf(
+                                                            PlayerStatsFragment(),
+                                                            PlayerVehicleFragment()
+                                                        )
                                                         if (player != null) {
                                                             titleNickView.text = " "+player.nickname
                                                             for(f in fragments){

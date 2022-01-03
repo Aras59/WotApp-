@@ -1,6 +1,6 @@
 package clans.interfaces
 
-import clans.clandatas.ClanList
+import clans.clandatas.Clan
 import okhttp3.CipherSuite
 import okhttp3.ConnectionSpec
 import okhttp3.OkHttpClient
@@ -15,7 +15,7 @@ import java.util.*
 interface ClanInterface {
 
     @GET("wot/clans/list/?application_id=098b54f4d269cc5f29f074e671fdcc00")
-    fun getClan(@Query("search") clan:String) : Call<ClanList>
+    fun getClan(@Query("search") clan:String) : Call<Clan>
 
     companion object {
 

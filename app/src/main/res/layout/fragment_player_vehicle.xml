@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragments.PlayerVehicleFragment">
+    tools:context="players.framents.PlayerVehicleFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,10 +18,28 @@
                 android:id="@+id/textView19"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:text="Vehicles"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+
+            <TableLayout
+                android:id="@+id/playerVehicleTable"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="200sp"
+        android:layout_marginTop="50sp"
+        android:indeterminateDrawable="@drawable/progressbar"/>
 
 
 </FrameLayout>

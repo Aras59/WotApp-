@@ -106,6 +106,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5sp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -138,7 +139,7 @@
                     <ImageView
                         android:id="@+id/playerClanLogoView"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="2"
                         android:src="@android:drawable/btn_star_big_on" />
                 </LinearLayout>
@@ -198,11 +199,12 @@
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="100dp"
+            android:indeterminateDrawable="@drawable/progressbar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

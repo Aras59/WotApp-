@@ -1,19 +1,32 @@
 package players.interfaces
 
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
+import players.achive.AchiveReponse
 import players.playerVehicleStats.Data
 import players.playerVehicleStats.VehicleStats
+import players.vehicles.VehicleRespond
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.Url
 import java.util.concurrent.TimeUnit
 
 interface PlayersVehiclesInterface {
 
     @GET("wot/tanks/stats/?application_id=098b54f4d269cc5f29f074e671fdcc00&extra=random")
     fun getPlayersVehiclesStats(@Query("account_id") account_id:String) : Call<VehicleStats>
+
+    @GET("wot/encyclopedia/vehicles/?application_id=098b54f4d269cc5f29f074e671fdcc00&fields=images%2Cname%2Cnation%2Ctier%2Ctype%2Ctank_id")
+    fun getVehicleList(): Call<VehicleRespond>
+
+    @GET("wot/encyclopedia/achievements/?application_id=098b54f4d269cc5f29f074e671fdcc00")
+    fun getAchiveList(): Call<AchiveReponse>
+
+    @GET
+    fun getVehicleLogo(@Url Url: String): Call<ResponseBody>
 
     companion object {
 

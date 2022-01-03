@@ -1,4 +1,4 @@
-package fragments
+package players.framents
 
 import android.annotation.SuppressLint
 import players.playerstats.Player

@@ -1,4 +1,4 @@
-package fragments
+package players.framents
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.wotapp.R
-import com.google.android.material.tabs.TabLayoutMediator
+import fragments.MyViewPagerAdapter
 import players.playerstats.Player
 
 class PlayerStatsFragment : Fragment() {
@@ -24,7 +24,10 @@ class PlayerStatsFragment : Fragment() {
         val player: Player = arguments?.getSerializable("PlayerOverallStats") as Player
         val wn8:Double = arguments?.getDouble("WN8") as Double
         val bundle = Bundle()
-        val fragments:ArrayList<Fragment> = arrayListOf(PlayerOverallStatsFragment(),PlayerOverallStatsFragment())
+        val fragments:ArrayList<Fragment> = arrayListOf(
+            PlayerOverallStatsFragment(),
+            PlayerOverallStatsFragment()
+        )
         for(f in fragments){
 
             bundle.putSerializable("PlayerOverallStats",player)
@@ -34,6 +37,7 @@ class PlayerStatsFragment : Fragment() {
         val pagerAdapter = MyViewPagerAdapter(fragments, activity as AppCompatActivity)
 
         playerStatsViewPager.adapter = pagerAdapter
+        playerStatsViewPager.orientation = ViewPager2.ORIENTATION_VERTICAL
 
 
 
