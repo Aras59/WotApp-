@@ -50,6 +50,7 @@ class PlayerFragment : Fragment() {
     private lateinit var spinner: Spinner
     private var nickname:String = ""
     private var account_id:String = ""
+    private lateinit var trackerButton:Button
 
     private lateinit var playerDataPager: ViewPager2
     private lateinit var playerFragmentsPager: ViewPager2
@@ -85,6 +86,8 @@ class PlayerFragment : Fragment() {
         playerClanLogoView = view.findViewById(R.id.playerClanLogoView)
         playerClanLogoView.visibility = View.INVISIBLE
         playerDataPager = view.findViewById(R.id.playerDataPager)
+        trackerButton = view.findViewById(R.id.trackerButton)
+        trackerButton.visibility = View.INVISIBLE
         calculator = arguments?.getSerializable("calculator") as Wn8Calculator
 
 
@@ -138,6 +141,7 @@ class PlayerFragment : Fragment() {
 
         searchButton.setOnClickListener {
             if(nicknameSearch.text.length>nickLenght){
+                Toast.makeText(activity, nicknameSearch.text, Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.VISIBLE
                 var playersInterface: Call<PlayerInfo>
                     if(spinner.selectedItem.toString().equals("EU")){
@@ -222,7 +226,6 @@ class PlayerFragment : Fragment() {
                                                                         val bitmap = BitmapFactory.decodeByteArray(buffer, 0, buffer.size)
                                                                         playerClanLogoView.setImageBitmap(bitmap)
                                                                         playerClanLogoView.visibility = View.VISIBLE
-
                                                                     }
 
                                                                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -357,8 +360,10 @@ class PlayerFragment : Fragment() {
                                                             playerFragmentLayout.visibility = View.VISIBLE
                                                             progressBar.visibility = View.INVISIBLE
                                                             nickLayout.visibility=View.VISIBLE
+                                                            trackerButton.visibility = View.VISIBLE
                                                             nicknameSearch.text.clear()
                                                         }
+
 
                                                     }
 
@@ -399,6 +404,13 @@ class PlayerFragment : Fragment() {
 
 
         return view;
+    }
+
+    override fun onResume() {
+        super.onResume()
+        nicknameSearch.text.clear()
+        nickname = ""
+        account_id = ""
     }
 
 }
