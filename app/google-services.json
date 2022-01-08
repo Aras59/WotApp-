@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "659692802670",
+    "project_id": "wotapp-db285",
+    "storage_bucket": "wotapp-db285.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659692802670:android:1bb0f23b7509901dd4cc7f",
+        "android_client_info": {
+          "package_name": "com.example.wotapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659692802670-0kdf3jul5ls78fvgniaipdfb2dh77t5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADfC4OJTBIgyJhVrlv5-TJ6B5dCbQbonw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659692802670-0kdf3jul5ls78fvgniaipdfb2dh77t5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

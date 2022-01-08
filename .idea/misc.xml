@@ -7,18 +7,30 @@
         <entry key="..\:/WotApp/app/src/main/res/drawable/ic_baseline_emoji_people_24.xml" value="0.2890625" />
         <entry key="..\:/WotApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2890625" />
         <entry key="..\:/WotApp/app/src/main/res/drawable/progressbar.xml" value="0.2203125" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/activity_hamburger.xml" value="0.19791666666666666" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/activity_login.xml" value="0.19791666666666666" />
         <entry key="..\:/WotApp/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/activity_register.xml" value="0.19791666666666666" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/app_bar_hamburger.xml" value="0.19791666666666666" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/content_hamburger.xml" value="0.19791666666666666" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_clan.xml" value="0.25" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_clan_description.xml" value="0.22" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_clan_members.xml" value="0.22" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_forum.xml" value="0.16145833333333334" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_gallery.xml" value="0.19635416666666666" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player.xml" value="0.2" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player_data.xml" value="0.2046875" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player_overall_stats.xml" value="0.18" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player_stats.xml" value="0.20018115942028986" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_player_vehicle.xml" value="0.18" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/fragment_slideshow.xml" value="0.19635416666666666" />
         <entry key="..\:/WotApp/app/src/main/res/layout/fragment_stats_frament.xml" value="0.19010416666666666" />
+        <entry key="..\:/WotApp/app/src/main/res/layout/nav_header_hamburger.xml" value="0.19791666666666666" />
         <entry key="..\:/WotApp/app/src/main/res/layout/spinner_list.xml" value="0.13272543059777103" />
+        <entry key="..\:/WotApp/app/src/main/res/menu/activity_main_drawer.xml" value="0.27291666666666664" />
+        <entry key="..\:/WotApp/app/src/main/res/menu/hamburger.xml" value="0.27291666666666664" />
+        <entry key="..\:/WotApp/app/src/main/res/menu/hamburgermenu.xml" value="0.27291666666666664" />
+        <entry key="..\:/WotApp/app/src/main/res/menu/logout.xml" value="0.27291666666666664" />
         <entry key="..\:/WotApp/app/src/main/res/menu/menu.xml" value="0.27291666666666664" />
         <entry key="..\:/WotApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21388888888888888" />
         <entry key="..\:/WotApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21388888888888888" />
