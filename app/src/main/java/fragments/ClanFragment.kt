@@ -12,9 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import calculatorWn8.Wn8Calculator
 import clans.clandatas.Clan
-import clans.clandatas.ClanList
 import clans.clandetails.ClanDetails
 import clans.clandetails.Members
 import clans.clanratings.ClanRatings
@@ -369,7 +367,7 @@ class ClanFragment : Fragment() {
 
                                                         f.arguments = bundle
                                                     }
-                                                    val clanAdapter = MyViewPagerAdapter(fragments, activity as AppCompatActivity)
+                                                    val clanAdapter = ViewPagerAdapter(fragments, activity as AppCompatActivity)
                                                     clanPager.adapter = clanAdapter
 
                                                     TabLayoutMediator(

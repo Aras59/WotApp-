@@ -85,9 +85,10 @@ class PlayerFragment : Fragment() {
         progressBar.visibility = View.INVISIBLE
         playerClanLogoView = view.findViewById(R.id.playerClanLogoView)
         playerClanLogoView.visibility = View.INVISIBLE
-        playerDataPager = view.findViewById(R.id.playerDataPager)
         trackerButton = view.findViewById(R.id.trackerButton)
         trackerButton.visibility = View.INVISIBLE
+        playerDataPager = view.findViewById(R.id.playerDataPager)
+        playerDataPager.visibility = View.INVISIBLE
         calculator = arguments?.getSerializable("calculator") as Wn8Calculator
 
 
@@ -141,7 +142,6 @@ class PlayerFragment : Fragment() {
 
         searchButton.setOnClickListener {
             if(nicknameSearch.text.length>nickLenght){
-                Toast.makeText(activity, nicknameSearch.text, Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.VISIBLE
                 var playersInterface: Call<PlayerInfo>
                     if(spinner.selectedItem.toString().equals("EU")){
@@ -161,9 +161,9 @@ class PlayerFragment : Fragment() {
                         override fun onResponse(call: Call<PlayerInfo>, response: Response<PlayerInfo>) {
                             if((response.body()?.status!="error")){
                                 if(response.body()?.meta?.count!=0) {
+
                                     account_id = response.body()?.data?.first()?.account_id.toString()!!
                                     nickname= response.body()?.data?.first()?.nickname!!
-
                                     var playersPersonalDataInterface: Call<Datas>
                                     if(spinner.selectedItem.toString().equals("EU")){
                                         playersPersonalDataInterface = PlayersPersonalData.createEU().getPlayerPersonalData(account_id)
@@ -288,21 +288,8 @@ class PlayerFragment : Fragment() {
                                                             }
                                                             wn8 = wn8/x
                                                         }
-                                                        val bundle = Bundle()
-                                                        val fragments:ArrayList<Fragment> = arrayListOf(
-                                                            PlayerStatsFragment(),
-                                                            PlayerVehicleFragment()
-                                                        )
+
                                                         if (player != null) {
-                                                            titleNickView.text = " "+player.nickname
-                                                            for(f in fragments){
-                                                                val listStats:ListStats = ListStats(a!!)
-                                                                bundle.putSerializable("PlayerListStats",listStats)
-                                                                bundle.putSerializable("PlayerOverallStats",player)
-                                                                bundle.putDouble("WN8",wn8)
-                                                                f.arguments = bundle
-                                                            }
-                                                            val pagerAdapter = MyViewPagerAdapter(fragments, activity as AppCompatActivity)
 
                                                             if(wn8<650.0){
                                                                 playerFragmentLayout.setBackgroundResource(R.color.red)
@@ -350,7 +337,22 @@ class PlayerFragment : Fragment() {
                                                                 nickLayout.setBackgroundResource(R.color.dark_purple)
                                                             }
 
+
+
+                                                            //ViewPager2 Init
+                                                            val bundle = Bundle()
+                                                            val fragments:ArrayList<Fragment> = ArrayList<Fragment>()
+                                                            val pagerAdapter = ViewPagerAdapter(fragments, activity as AppCompatActivity)
                                                             playerFragmentsPager.adapter = pagerAdapter
+                                                            fragments.add(PlayerStatsFragment())
+                                                            fragments.add(PlayerVehicleFragment())
+                                                            for(f in fragments){
+                                                                val listStats:ListStats = ListStats(a!!)
+                                                                bundle.putSerializable("PlayerListStats",listStats)
+                                                                bundle.putSerializable("PlayerOverallStats",player)
+                                                                bundle.putDouble("WN8",wn8)
+                                                                f.arguments = bundle
+                                                            }
                                                             TabLayoutMediator(playerFragmentsTab, playerFragmentsPager)
                                                             { tab, position ->
                                                                 if (position == 0) tab.text = "Player Stats"
@@ -360,8 +362,10 @@ class PlayerFragment : Fragment() {
                                                             playerFragmentLayout.visibility = View.VISIBLE
                                                             progressBar.visibility = View.INVISIBLE
                                                             nickLayout.visibility=View.VISIBLE
+                                                            playerFragmentsPager.visibility = View.VISIBLE
                                                             trackerButton.visibility = View.VISIBLE
                                                             nicknameSearch.text.clear()
+                                                            titleNickView.text = " "+player.nickname
                                                         }
 
 
@@ -404,13 +408,6 @@ class PlayerFragment : Fragment() {
 
 
         return view;
-    }
-
-    override fun onResume() {
-        super.onResume()
-        nicknameSearch.text.clear()
-        nickname = ""
-        account_id = ""
     }
 
 }
