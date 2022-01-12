@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -56,10 +57,14 @@ class RegisterActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    val ref = FirebaseDatabase.getInstance().getReference("Users")
-                    ref.child(user!!.uid).child("Nickname").setValue(nickname)
-                    Toast.makeText(baseContext, user!!.email.toString(),
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(nickname)
+                        .build()
+                    user!!.updateProfile(profileUpdates)
+                    Toast.makeText(baseContext, "Authentication succes.",
                         Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
