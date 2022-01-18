@@ -1,5 +1,7 @@
 package players.playerVehicleStats
 
+import java.io.Serializable
+
 data class StrongholdSkirmish(
     val battle_avg_xp: Int,
     val battles: Int,
@@ -30,4 +32,4 @@ data class StrongholdSkirmish(
     val tanking_factor: Double,
     val wins: Int,
     val xp: Int
-)
+): Serializable

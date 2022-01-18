@@ -1,5 +1,7 @@
 package players.playerVehicleStats
 
+import java.io.Serializable
+
 data class RegularTeam(
     val battle_avg_xp: Int,
     val battles: Int,
@@ -23,4 +25,4 @@ data class RegularTeam(
     val survived_battles: Int,
     val wins: Int,
     val xp: Int
-)
+): Serializable

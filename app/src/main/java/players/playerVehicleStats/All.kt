@@ -1,5 +1,7 @@
 package players.playerVehicleStats
 
+import java.io.Serializable
+
 data class All(
     val avg_damage_blocked: Double,
     val battle_avg_xp: Int,
@@ -28,4 +30,4 @@ data class All(
     val tanking_factor: Double,
     val wins: Int,
     val xp: Int
-)
+): Serializable

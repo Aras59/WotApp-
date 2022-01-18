@@ -2,7 +2,7 @@ package players.playerVehicleStats
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import players.playerstats.Player
+import java.io.Serializable
 
 data class VehicleStats(
     @SerializedName("data")
@@ -10,4 +10,4 @@ data class VehicleStats(
     val stats:Map<String, List<Stats>>,
     val meta: Meta,
     val status: String
-)
+): Serializable

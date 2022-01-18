@@ -1,5 +1,7 @@
 package players.playerVehicleStats
 
+import java.io.Serializable
+
 data class Globalmap(
     val avg_damage_assisted: Double,
     val avg_damage_assisted_radio: Double,
@@ -31,4 +33,4 @@ data class Globalmap(
     val tanking_factor: Double,
     val wins: Int,
     val xp: Int
-)
+): Serializable
