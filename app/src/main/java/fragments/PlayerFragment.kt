@@ -27,8 +27,12 @@ import players.playerVehicleStats.VehicleStats
 
 import clans.clandetails.ClanDetails
 import clans.interfaces.ClanDetailsInterface
+import com.google.android.gms.tasks.Task
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.functions.ktx.functions
+import com.google.firebase.ktx.Firebase
 import okhttp3.ResponseBody
 import players.framents.PlayerStatsFragment
 import players.framents.PlayerVehicleFragment
@@ -57,7 +61,8 @@ class PlayerFragment : Fragment() {
     private lateinit var calculator: Wn8Calculator
     private lateinit var progressBar: ProgressBar
     private lateinit var playerClanLogoView: ImageView
-    private lateinit var playerFragmentsTab:TabLayout
+    private lateinit var playerFragmentsTab: TabLayout
+    private lateinit var functions: FirebaseFunctions
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,7 +83,7 @@ class PlayerFragment : Fragment() {
         playerClanNameTextView.visibility = View.INVISIBLE
         nicknameSearch.text.clear()
         nickLayout = view.findViewById(R.id.nickLayout)
-        nickLayout.visibility=View.INVISIBLE
+        nickLayout.visibility = View.INVISIBLE
         playerFragmentLayout = view.findViewById(R.id.playerFragmentLayout)
         playerFragmentLayout.visibility = View.INVISIBLE
         progressBar = view.findViewById(R.id.progressBar)
@@ -90,7 +95,7 @@ class PlayerFragment : Fragment() {
         playerDataPager = view.findViewById(R.id.playerDataPager)
         playerDataPager.visibility = View.INVISIBLE
         calculator = arguments?.getSerializable("calculator") as Wn8Calculator
-
+        functions = Firebase.functions
 
         spinner = view.findViewById(R.id.spinner)
 
@@ -100,6 +105,15 @@ class PlayerFragment : Fragment() {
         }
         if(spinner != null) {
             spinner.adapter = adapter
+        }
+
+        trackerButton.setOnClickListener {
+            if(nickname!=""&&nickname!=null){
+                addPlayerToFollowingList(nickname)
+            }else{
+                Toast.makeText(activity,"Cannot follow this player!", Toast.LENGTH_LONG).show()
+            }
+
         }
 
         //DANE
@@ -409,5 +423,22 @@ class PlayerFragment : Fragment() {
 
         return view;
     }
+
+    private fun addPlayerToFollowingList(nickname:String): Task<String> {
+        val data = hashMapOf(
+            "nickname" to nickname
+        )
+
+        return functions
+            .getHttpsCallable("addToTrackList")
+            .call(data)
+            .continueWith { task ->
+                val result = task.result?.data as String
+                Toast.makeText(activity, result, Toast.LENGTH_SHORT).show()
+                result
+
+            }
+    }
+
 
 }
