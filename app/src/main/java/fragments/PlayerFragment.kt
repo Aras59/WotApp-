@@ -30,6 +30,7 @@ import clans.interfaces.ClanDetailsInterface
 import com.google.android.gms.tasks.Task
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -425,12 +426,28 @@ class PlayerFragment : Fragment() {
     }
 
     private fun addPlayerToFollowingList(nickname:String): Task<String> {
+        var server:String
+        if(spinner.selectedItem.toString().equals("EU")){
+            server = "EU"
+        }
+        else if(spinner.selectedItem.toString().equals("RU")){
+            server = "RU"
+        }
+        else if(spinner.selectedItem.toString().equals("ASIA")){
+            server = "ASIA"
+        }
+        else{
+            server = "NA"
+        }
+        val auth = Firebase.auth
         val data = hashMapOf(
-            "nickname" to nickname
+            "followednickname" to nickname,
+            "server" to server,
+            "usernickname" to auth.currentUser!!.displayName,
         )
 
         return functions
-            .getHttpsCallable("addToTrackList")
+            .getHttpsCallable("addToFollowAndFollowingDataBase")
             .call(data)
             .continueWith { task ->
                 val result = task.result?.data as String
