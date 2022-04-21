@@ -27,7 +27,7 @@ class PlayerStatsFragment : Fragment() {
         val fragments:ArrayList<Fragment> = ArrayList<Fragment>()
         val pagerAdapter = ViewPagerAdapter(fragments, activity as AppCompatActivity)
         fragments.add(PlayerOverallStatsFragment())
-        fragments.add(PlayerOverallStatsFragment())
+        fragments.add(PlayerYesterdayStatsFragment())
 
         for(f in fragments){
 
