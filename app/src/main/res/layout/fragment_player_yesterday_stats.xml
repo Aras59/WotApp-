@@ -2,13 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="players.framents.PlayerOverallStatsFragment">
+    tools:context="players.framents.PlayerYesterdayStatsFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="370dp"
+        android:layout_height="480dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/border"
-                android:text="Overall Stats"
+                android:text="Stats From Yesterday"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="25sp"
@@ -31,59 +31,12 @@
 
         <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5sp"
             android:layout_marginTop="5sp"
             android:layout_marginRight="5sp"
             android:layout_marginBottom="5sp">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/border">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border"
-                    android:text=" WTR RATING:"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:id="@+id/wtrRating"
-                    android:layout_width="213dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
-            </TableRow>
-
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/border">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/border"
-                    android:fontFamily="sans-serif"
-                    android:text=" WN8:"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:id="@+id/wn8View"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/border"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
-            </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -344,33 +297,6 @@
                     android:text="TextView"
                     android:textColor="#FFFFFF"
                     android:textSize="22sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/border">
-
-                <TextView
-                    android:id="@+id/createdView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/lastGameView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:text="TextView"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
-
             </TableRow>
         </TableLayout>
 

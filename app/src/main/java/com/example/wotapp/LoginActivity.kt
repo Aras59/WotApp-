@@ -12,7 +12,6 @@ import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlin.math.sign
 
 class LoginActivity : AppCompatActivity() {
 

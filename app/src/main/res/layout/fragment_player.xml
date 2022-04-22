@@ -90,16 +90,13 @@
                         android:textColor="#FFFFFF"
                         android:textSize="34sp" />
 
-                    <TextView
-                        android:id="@+id/titleServerView"
+
+                    <ImageView
+                        android:id="@+id/serverLogo"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:paddingLeft="5sp"
-                        android:text="EU"
-                        android:textAlignment="textStart"
-                        android:textColor="#FFFFFF"
-                        android:textSize="34sp" />
+                        android:src="@drawable/euro32" />
 
                 </LinearLayout>
 
@@ -170,7 +167,6 @@
                         android:id="@+id/playerFragmentsTab"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="5sp"
                         android:background="@drawable/border"
                         app:tabIndicatorColor="#FFFFFF"
                         app:tabTextColor="#FFFFFF">
@@ -199,8 +195,6 @@
                 android:id="@+id/playerDataPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10sp"
-                android:layout_marginBottom="5sp"
                 app:backgroundTint="@null" />
 
         </LinearLayout>

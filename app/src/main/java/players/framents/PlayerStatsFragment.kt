@@ -24,9 +24,10 @@ class PlayerStatsFragment : Fragment() {
         val player: Player = arguments?.getSerializable("PlayerOverallStats") as Player
         val wn8:Double = arguments?.getDouble("WN8") as Double
         val bundle = Bundle()
-        val fragments:ArrayList<Fragment> = ArrayList<Fragment>()
+        val fragments:ArrayList<Fragment> = ArrayList()
         val pagerAdapter = ViewPagerAdapter(fragments, activity as AppCompatActivity)
         fragments.add(PlayerOverallStatsFragment())
+        // TODO: 22.04.2022 Validation to check is user tracking by user which is already login in app.
         fragments.add(PlayerYesterdayStatsFragment())
 
         for(f in fragments){
@@ -36,13 +37,8 @@ class PlayerStatsFragment : Fragment() {
             f.arguments = bundle
         }
 
-
         playerStatsViewPager.adapter = pagerAdapter
         playerStatsViewPager.orientation = ViewPager2.ORIENTATION_VERTICAL
-
-
-
-
 
         return view
     }

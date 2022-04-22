@@ -1,8 +1,6 @@
 package com.example.wotapp
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,9 +9,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import com.google.rpc.context.AttributeContext
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -35,8 +31,10 @@ class RegisterActivity : AppCompatActivity() {
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
             val nickname = editTextNickname.text.toString()
-            if(email != null && email!="" && password!=null && password !="" && nickname!=null && nickname!="")
+            if(email!="" && password !="" && nickname!=""){
                 createAccount(email,password,nickname)
+            }
+
 
         }
 

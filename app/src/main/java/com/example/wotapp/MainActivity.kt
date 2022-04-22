@@ -1,5 +1,6 @@
 package com.example.wotapp
 
+import android.app.ActionBar
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -20,19 +21,12 @@ import fragments.ClanFragment
 import fragments.ForumFragment
 import fragments.PlayerFragment
 import java.lang.reflect.Type
+import android.graphics.drawable.ColorDrawable
+import android.graphics.Color;
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
-    private val nickLenght:Int = 2;
-    private lateinit var spinner:Spinner
-    private lateinit var adapter:Adapter
-
-    private lateinit var searchButton:Button
-    private lateinit var textView: TextView
-    private lateinit var nicknameSearch:AutoCompleteTextView
-    private var nickname:String = ""
-    private var account_id:String = ""
     private val playerFragment = PlayerFragment()
     private val clanFragment = ClanFragment()
     private val forumFragment = ForumFragment()
@@ -43,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val values: List<Wn8ExpValue> = readWn8File()
-        val calculator:Wn8Calculator = Wn8Calculator(values)
+        val calculator = Wn8Calculator(values)
         val bundle = Bundle()
         bundle.putSerializable("calculator",calculator)
         auth = Firebase.auth
@@ -67,11 +61,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment){
-        if(fragment!=null){
-            val tran = supportFragmentManager.beginTransaction()
-            tran.replace(R.id.fragments_view,fragment)
-            tran.commit()
-        }
+        val tran = supportFragmentManager.beginTransaction()
+        tran.replace(R.id.fragments_view,fragment)
+        tran.commit()
     }
 
     private fun readWn8File():List<Wn8ExpValue>{
@@ -81,15 +73,15 @@ class MainActivity : AppCompatActivity() {
         input.read(buffer)
         input.close()
         val wn8text = String(buffer)
-        var gson = Gson()
+        val gson = Gson()
         val typeWN8: Type? = object : TypeToken<List<Wn8ExpValue?>?>() {}.type
         return gson.fromJson(wn8text, typeWN8)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        var menuInflater: MenuInflater = menuInflater;
-        menuInflater.inflate(R.menu.logout,menu);
-        return true;
+        val menuInflater: MenuInflater = menuInflater
+        menuInflater.inflate(R.menu.logout,menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -104,9 +96,10 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
 
 
 }
+
