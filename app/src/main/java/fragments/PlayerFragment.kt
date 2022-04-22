@@ -261,26 +261,39 @@ class PlayerFragment : Fragment() {
                                         val getPlayersVehiclesStats = playersInterface.getPlayersVehiclesStats(accountId)
                                         getPlayersVehiclesStats.enqueue(object : Callback<VehicleStats>{
                                             override fun onResponse(call: Call<VehicleStats>, response: Response<VehicleStats>) {
-                                                val listOfStatsPerTanks = response.body()?.stats?.get(accountId)
+                                                if(response.body()?.status != "error" && response.body()?.meta?.count != 0) {
+                                                    val listOfStatsPerTanks = response.body()?.stats?.get(accountId)
 
-                                                val wn8 = wn8Calculate(listOfStatsPerTanks)
+                                                    if (listOfStatsPerTanks != null){
+                                                        val wn8 = wn8Calculate(listOfStatsPerTanks)
 
-                                                if (player != null) {
+                                                        if (player != null) {
 
-                                                    colorBackgroundWithWn8(wn8)
+                                                            colorBackgroundWithWn8(wn8)
 
-                                                    //ViewPager2 Init
-                                                    viewPager2ForStatsFragmentsInit(listOfStatsPerTanks,wn8,player)
+                                                            viewPager2ForStatsFragmentsInit(
+                                                                listOfStatsPerTanks,
+                                                                wn8,
+                                                                player
+                                                            )
 
-                                                    playerFragmentLayout.visibility = View.VISIBLE
-                                                    nickLayout.visibility=View.VISIBLE
-                                                    playerFragmentsPager.visibility = View.VISIBLE
-                                                    trackerButton.visibility = View.VISIBLE
-                                                    nicknameSearchAutoCompleteTextView.text.clear()
-                                                    progressBar.visibility = View.INVISIBLE
+                                                            playerFragmentLayout.visibility =
+                                                                View.VISIBLE
+                                                            nickLayout.visibility = View.VISIBLE
+                                                            playerFragmentsPager.visibility =
+                                                                View.VISIBLE
+                                                            trackerButton.visibility = View.VISIBLE
+                                                            nicknameSearchAutoCompleteTextView.text.clear()
+                                                            progressBar.visibility = View.INVISIBLE
+
+                                                        }
+                                                    } else {
+                                                        progressBar.visibility = View.INVISIBLE
+                                                        Toast.makeText(activity,"This player don't have any battles",Toast.LENGTH_SHORT).show()
+                                                    }
+
 
                                                 }
-
                                             }
                                             override fun onFailure(call: Call<VehicleStats>, t: Throwable) {
                                                 progressBar.visibility = View.INVISIBLE

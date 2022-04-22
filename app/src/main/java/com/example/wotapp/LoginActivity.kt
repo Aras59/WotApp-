@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
-            if(email != null && password != null && email!="" && password!=""){
+            if( email != "" && password != ""){
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {

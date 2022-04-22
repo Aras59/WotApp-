@@ -1,6 +1,5 @@
 package com.example.wotapp
 
-import android.app.ActionBar
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -21,8 +20,6 @@ import fragments.ClanFragment
 import fragments.ForumFragment
 import fragments.PlayerFragment
 import java.lang.reflect.Type
-import android.graphics.drawable.ColorDrawable
-import android.graphics.Color;
 
 
 class MainActivity : AppCompatActivity() {

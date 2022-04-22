@@ -23,7 +23,7 @@ interface ClanRatingsInterface {
         var BASE_URL_ASIA = "https://api.worldoftanks.asia"
         var BASE_URL_NA = "https://api.worldoftanks.com"
 
-        val client = OkHttpClient.Builder()
+        private val client = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .callTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

@@ -12,7 +12,6 @@ import android.widget.*
 import com.example.wotapp.R
 import players.playerVehicleStats.ListStats
 import android.widget.LinearLayout
-import androidx.core.content.res.ResourcesCompat
 import okhttp3.ResponseBody
 import players.achive.AchiveReponse
 import players.interfaces.PlayersInterface

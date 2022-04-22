@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import clans.clandetails.Members
 import com.example.wotapp.R
 
 class ClanDescriptionFragment : Fragment() {
@@ -19,14 +18,12 @@ class ClanDescriptionFragment : Fragment() {
     private lateinit var clanSh8EloView: TextView
     private lateinit var clanSh6EloView: TextView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.fragment_clan_description, container, false)
 
 
@@ -37,7 +34,7 @@ class ClanDescriptionFragment : Fragment() {
         clanCreatorView = view.findViewById(R.id.creatorView)
         clanCreatorView.text = arguments?.getString("ClanCreator")
         clanAcceptJoinView = view.findViewById(R.id.joinRequestView)
-        if(arguments?.getBoolean("JoinRequest").toString().equals("false"))
+        if(arguments?.getBoolean("JoinRequest").toString() == "false")
             clanAcceptJoinView.text = "No accept"
         else
             clanAcceptJoinView.text = "Accept"
