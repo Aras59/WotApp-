@@ -1,15 +1,22 @@
 package com.example.wotapp
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.DocumentSnapshot
+
+
+
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -31,10 +38,25 @@ class RegisterActivity : AppCompatActivity() {
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
             val nickname = editTextNickname.text.toString()
-            if(email!="" && password !="" && nickname!=""){
-                createAccount(email,password,nickname)
+            val usersFirestoreDataBase = FirebaseFirestore.getInstance()
+            val name = nickname.lowercase().replaceFirstChar { it.uppercase() }
+            usersFirestoreDataBase.collection("Users").document(name).get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val document = task.result
+                        if(!document.exists()) {
+                            if(email!="" && password !="" && nickname!="") {
+                                createAccount(email,password,nickname)
+                            }
+                        }else{
+                            Toast.makeText(baseContext, "Authentication failed. User with this nickname already exist!",
+                                Toast.LENGTH_LONG).show()
+                        }
+                    }else {
+                        Toast.makeText(baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show()
+                    }
             }
-
 
         }
 
@@ -47,10 +69,11 @@ class RegisterActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
     }
 
 
-    private fun createAccount(email: String, password: String,nickname: String) {
+    private fun createAccount(email: String, password: String, nickname: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -59,6 +82,16 @@ class RegisterActivity : AppCompatActivity() {
                         .setDisplayName(nickname)
                         .build()
                     user!!.updateProfile(profileUpdates)
+                    val userCredential = hashMapOf(
+                        "email" to email,
+                        "nickname" to nickname,
+                        "uID" to user.uid
+                    )
+
+                    val usersFirestoreDataBase = FirebaseFirestore.getInstance()
+                    usersFirestoreDataBase.collection("Users")
+                        .document(nickname).set(userCredential)
+
                     Toast.makeText(baseContext, "Authentication succes.",
                         Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
