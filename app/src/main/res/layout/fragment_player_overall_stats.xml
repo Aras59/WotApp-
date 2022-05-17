@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="370dp"
+        android:layout_height="340dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -25,7 +25,7 @@
                 android:text="Overall Stats"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -33,9 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="5sp"
-            android:layout_marginTop="5sp"
+            android:layout_marginTop="3sp"
             android:layout_marginRight="5sp"
-            android:layout_marginBottom="5sp">
+            android:layout_marginBottom="3sp">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -43,21 +43,21 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
                     android:text=" WTR RATING:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/wtrRating"
-                    android:layout_width="213dp"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
             </TableRow>
 
 
@@ -67,13 +67,13 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/border"
                     android:fontFamily="sans-serif"
                     android:text=" WN8:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/wn8View"
@@ -82,7 +82,7 @@
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
@@ -91,12 +91,12 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
                     android:text=" Battles:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/battlesView"
@@ -105,7 +105,7 @@
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
             </TableRow>
 
 
@@ -115,12 +115,12 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
                     android:text=" Victory Battles:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
                         android:background="@drawable/border"
                         android:text="TextView"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/victoryView"
@@ -143,7 +143,7 @@
                         android:background="@drawable/border"
                         android:text="TextView"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </TableRow>
@@ -154,12 +154,12 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
                     android:text=" Survived Battles:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -173,7 +173,7 @@
                         android:background="@drawable/border"
                         android:text="TextView"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/survivedPercentView"
@@ -182,7 +182,7 @@
                         android:background="@drawable/border"
                         android:text="TextView"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </TableRow>
@@ -193,13 +193,12 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text=" Avg Damage Dealt:"
+                    android:text=" Damage Dealt:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/avgDmgView"
@@ -208,7 +207,7 @@
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
             </TableRow>
 
@@ -218,13 +217,12 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text=" Avg Assist Damage:"
+                    android:text=" Assist Damage:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/avgAsistView"
@@ -233,7 +231,7 @@
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
@@ -242,12 +240,12 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text=" Avg Tanks Destroyed:"
+                    android:text=" Tanks Destroyed:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/avgDestroyedTank"
@@ -256,7 +254,7 @@
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
@@ -265,12 +263,12 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
                     android:text=" Hit Ratio:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/hitRatioView"
@@ -279,7 +277,7 @@
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
             </TableRow>
 
 
@@ -289,12 +287,12 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
                     android:text=" Piercings shots:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -308,7 +306,7 @@
                         android:background="@drawable/border"
                         android:text="TextView"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/piercingsShotsPerBattleView"
@@ -317,7 +315,7 @@
                         android:background="@drawable/border"
                         android:text="TextView"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </TableRow>
@@ -329,12 +327,12 @@
                 android:background="@drawable/border">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text=" Experience per Battle:"
+                    android:text=" Exp per Battle:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/expView"
@@ -343,33 +341,32 @@
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@drawable/border">
 
                 <TextView
                     android:id="@+id/createdView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/lastGameView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/border"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             </TableRow>
         </TableLayout>

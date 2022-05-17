@@ -68,7 +68,7 @@ class PlayerOverallStatsFragment : Fragment() {
         battlesView.text = " "+player.statistics.all.battles.toString()
         survivedBattlesView.text = " "+player.statistics.all.survived_battles.toString()+" "
         hitRatioView.text = " "+player.statistics.all.hits_percents.toString() + "%"
-        piercingsShotsView.text = " "+player.statistics.all.piercings.toString()
+        piercingsShotsView.text = " "+player.statistics.all.piercings.toString() + " "
         victoryBattlesView.text = " "+player.statistics.all.wins.toString()+" "
         var wn8 = arguments?.getDouble("WN8")
 
@@ -84,7 +84,7 @@ class PlayerOverallStatsFragment : Fragment() {
             avgAsistView.text = " "+(player.statistics.all.avg_damage_assisted).toString()
             expView.text = " "+(player.statistics.all.xp/player.statistics.all.battles).toString()+" XP"
             avgDestroyedTankView.text = " "+BigDecimal((player.statistics.all.frags/player.statistics.all.battles).toDouble()).setScale(2,RoundingMode.HALF_EVEN).toString()
-            piercingsShotsPerBattleView.text = " "+(player.statistics.all.piercings/player.statistics.all.battles).toString()+"shots"
+            piercingsShotsPerBattleView.text = " "+(player.statistics.all.piercings/player.statistics.all.battles).toString()+" shots"
         }else{
             avgDmgView.text = " "+"0"
             avgAsistView.text =" "+ player.statistics.all.avg_damage_assisted.toString()

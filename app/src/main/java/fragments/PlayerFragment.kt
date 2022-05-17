@@ -26,6 +26,7 @@ import clans.interfaces.ClanDetailsInterface
 import com.google.android.gms.tasks.Task
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
@@ -40,6 +41,7 @@ import java.lang.StringBuilder
 
 
 class PlayerFragment : Fragment() {
+    private lateinit var auth: FirebaseAuth
     private lateinit var serverSpinnerAdapter: ArrayAdapter<CharSequence>
     private lateinit var functions: FirebaseFunctions
     private lateinit var nicknameSearchAutoCompleteTextView: AutoCompleteTextView
@@ -58,6 +60,7 @@ class PlayerFragment : Fragment() {
     private lateinit var spinner: Spinner
     private var nickname:String = ""
     private var accountId:String = ""
+    private lateinit var logedUserNickname: String
     private lateinit var trackerButton:Button
 
     private lateinit var playerDataPager: ViewPager2
@@ -74,6 +77,8 @@ class PlayerFragment : Fragment() {
         serverSpinnerAdapter = activity?.let { ArrayAdapter.createFromResource(it,R.array.regions,
             R.layout.spinner_list) } as ArrayAdapter<CharSequence>
         calculator = arguments?.getSerializable("calculator") as Wn8Calculator
+        auth = Firebase.auth
+        logedUserNickname = auth.currentUser?.displayName.toString()
         super.onCreate(savedInstanceState)
     }
 
@@ -195,6 +200,7 @@ class PlayerFragment : Fragment() {
                     }
                 }
 
+
                 progressBar.visibility = View.VISIBLE
                 val getPlayers = playersInterface.getPlayers(nicknameSearchAutoCompleteTextView.text.toString())
                 getPlayers.enqueue(object : Callback<PlayerInfo> {
@@ -202,13 +208,12 @@ class PlayerFragment : Fragment() {
                         if(response.body()?.status != "error" && response.body()?.meta?.count != 0){
                             accountId = response.body()?.data?.first()?.account_id.toString()
                             nickname = response.body()?.data?.first()?.nickname!!
-
                             val getPlayersPersonalData = playersInterface.getPlayerPersonalData(accountId)
                             getPlayersPersonalData.enqueue(object : Callback<Datas>{
                                 override fun onResponse(call: Call<Datas>, response: Response<Datas>) {
                                     if(response.body()?.status != "error" && response.body()?.meta?.count != 0){
                                         val player: Player? = response.body()?.player?.get(accountId)
-
+                                        titleNickView.text = StringBuilder(" "+player?.nickname)
                                         val playerClanID = response.body()?.player?.get(accountId)?.clan_id
                                         if(playerClanID != 0){
 
@@ -221,7 +226,6 @@ class PlayerFragment : Fragment() {
                                                     playerClanNameTextView.text = StringBuilder(" ["+response.body()?.clan
                                                         ?.get(playerClanID.toString())?.tag+"] "+response.body()
                                                         ?.clan?.get(playerClanID.toString())?.name)
-                                                    titleNickView.text = StringBuilder(" "+player?.nickname)
                                                     playerClanNameTextView.visibility = View.VISIBLE
                                                     playerClanMottoTextView.text = StringBuilder(" "+response.body()?.clan?.get(playerClanID.toString())?.motto)
                                                     playerClanMottoTextView.visibility = View.VISIBLE
@@ -282,9 +286,9 @@ class PlayerFragment : Fragment() {
                                                             nickLayout.visibility = View.VISIBLE
                                                             playerFragmentsPager.visibility =
                                                                 View.VISIBLE
-                                                            trackerButton.visibility = View.VISIBLE
-                                                            nicknameSearchAutoCompleteTextView.text.clear()
                                                             progressBar.visibility = View.INVISIBLE
+                                                            setingVisibilityForTrackerButton()
+                                                            nicknameSearchAutoCompleteTextView.text.clear()
 
                                                         }
                                                     } else {
@@ -352,6 +356,14 @@ class PlayerFragment : Fragment() {
                 result
 
             }
+    }
+
+    private fun setingVisibilityForTrackerButton(){
+        if(nicknameSearchAutoCompleteTextView.text.toString().equals(logedUserNickname,true)) {
+            trackerButton.visibility = View.INVISIBLE
+        } else {
+            trackerButton.visibility = View.VISIBLE
+        }
     }
 
     private fun colorBackgroundWithWn8(wn8: Double) {

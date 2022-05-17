@@ -33,7 +33,7 @@ class PlayerVehicleFragment : Fragment() {
     private lateinit var getVehicleList: Call<VehicleRespond>
     private lateinit var getMarkOfMasteryImage: Call<ResponseBody>
     private lateinit var listStats: ListStats
-    private lateinit var markOfMasteryBitmap: ArrayList<Bitmap>
+    private lateinit var markOfMasteryBitmap: HashMap<String,Bitmap>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         listStats = arguments?.getSerializable("PlayerListStats") as ListStats
@@ -43,25 +43,25 @@ class PlayerVehicleFragment : Fragment() {
             "ASIA" -> PlayersInterface.createASIA()
             else -> PlayersInterface.createNA()
         }
+        markOfMasteryBitmap = HashMap()
         getAchieveList = playersInterface.getAchiveList()
         getVehicleList = playersInterface.getVehicleList()
 
-        getMasteryImage(PlayersInterface.markOfMastery3)
-        getMasteryImage(PlayersInterface.markOfMastery2)
-        getMasteryImage(PlayersInterface.markOfMastery1)
-        getMasteryImage(PlayersInterface.aceTanker)
+        getMasteryImage(PlayersInterface.markOfMastery3,"3mark")
+        getMasteryImage(PlayersInterface.markOfMastery2,"2mark")
+        getMasteryImage(PlayersInterface.markOfMastery1,"1mark")
+        getMasteryImage(PlayersInterface.aceTanker,"Acemark")
 
         super.onCreate(savedInstanceState)
     }
 
-    private fun getMasteryImage(url: String){
+    private fun getMasteryImage(url: String, key: String){
         getMarkOfMasteryImage = playersInterface.getVehicleLogo(url)
-        markOfMasteryBitmap = ArrayList()
         getMarkOfMasteryImage.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 val buffer: ByteArray = response.body()!!.bytes()
                 val bitmap = BitmapFactory.decodeByteArray(buffer, 0, buffer.size)
-                markOfMasteryBitmap.add(bitmap)
+                markOfMasteryBitmap.put(key,bitmap)
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -204,11 +204,11 @@ class PlayerVehicleFragment : Fragment() {
 
             })
 
-            masteryImageView.setImageBitmap(markOfMasteryBitmap[0])
+            masteryImageView.setImageBitmap(markOfMasteryBitmap.get("3mark"))
             when(vehicleStats.statistic.mark_of_mastery){
-                4 -> masteryImageView.setImageBitmap(markOfMasteryBitmap[3])
-                2 -> masteryImageView.setImageBitmap(markOfMasteryBitmap[1])
-                3 -> masteryImageView.setImageBitmap(markOfMasteryBitmap[2])
+                4 -> masteryImageView.setImageBitmap(markOfMasteryBitmap.get("Acemark"))
+                2 -> masteryImageView.setImageBitmap(markOfMasteryBitmap.get("2mark"))
+                3 -> masteryImageView.setImageBitmap(markOfMasteryBitmap.get("1mark"))
             }
 
             firstLayout.addView(tankNameView)
