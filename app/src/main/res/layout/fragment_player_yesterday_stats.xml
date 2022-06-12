@@ -25,7 +25,7 @@
                 android:text="Stats From Yesterday"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:textSize="25sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -49,16 +49,16 @@
                     android:background="@drawable/border"
                     android:text=" Battles:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
                 <TextView
                     android:id="@+id/battlesView"
-                    android:layout_width="match_parent"
+                    android:layout_width="170sp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text="TextView"
+                    android:text=" 0"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
             </TableRow>
 
 
@@ -73,7 +73,7 @@
                     android:background="@drawable/border"
                     android:text=" Victory Battles:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -85,18 +85,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:text="TextView"
+                        android:text=" 0 "
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="21sp" />
 
                     <TextView
                         android:id="@+id/victoryView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:text="TextView"
+                        android:text=" 0 %"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="21sp" />
                 </LinearLayout>
 
             </TableRow>
@@ -112,7 +112,7 @@
                     android:background="@drawable/border"
                     android:text=" Survived Battles:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -124,18 +124,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:text="TextView"
+                        android:text=" 0 "
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="21sp" />
 
                     <TextView
                         android:id="@+id/survivedPercentView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:text="TextView"
+                        android:text=" 0 %"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="21sp" />
                 </LinearLayout>
 
             </TableRow>
@@ -152,16 +152,16 @@
                     android:background="@drawable/border"
                     android:text=" Avg Damage Dealt:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
                 <TextView
                     android:id="@+id/avgDmgView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text="TextView"
+                    android:text=" 0"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
             </TableRow>
 
@@ -177,16 +177,16 @@
                     android:background="@drawable/border"
                     android:text=" Avg Assist Damage:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
                 <TextView
                     android:id="@+id/avgAsistView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text="TextView"
+                    android:text=" 0"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
             </TableRow>
 
             <TableRow
@@ -200,16 +200,16 @@
                     android:background="@drawable/border"
                     android:text=" Avg Tanks Destroyed:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
                 <TextView
                     android:id="@+id/avgDestroyedTank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text="TextView"
+                    android:text=" 0"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
             </TableRow>
 
             <TableRow
@@ -223,16 +223,16 @@
                     android:background="@drawable/border"
                     android:text=" Hit Ratio:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
                 <TextView
                     android:id="@+id/hitRatioView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text="TextView"
+                    android:text=" 0"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
             </TableRow>
 
 
@@ -247,7 +247,7 @@
                     android:background="@drawable/border"
                     android:text=" Piercings shots:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -259,18 +259,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:text="TextView"
+                        android:text=" 0"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="21sp" />
 
                     <TextView
                         android:id="@+id/piercingsShotsPerBattleView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/border"
-                        android:text="TextView"
+                        android:text=" 0"
                         android:textColor="#FFFFFF"
-                        android:textSize="22sp" />
+                        android:textSize="21sp" />
                 </LinearLayout>
 
             </TableRow>
@@ -287,18 +287,31 @@
                     android:background="@drawable/border"
                     android:text=" Experience per Battle:"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
 
                 <TextView
                     android:id="@+id/expView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border"
-                    android:text="TextView"
+                    android:text=" 0"
                     android:textColor="#FFFFFF"
-                    android:textSize="22sp" />
+                    android:textSize="21sp" />
             </TableRow>
         </TableLayout>
+
+        <TextView
+            android:id="@+id/accessInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginBottom="5sp"
+            android:background="@drawable/border"
+            android:text="You don't have access to stats from yesterday about this player."
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="19sp" />
 
     </LinearLayout>
 

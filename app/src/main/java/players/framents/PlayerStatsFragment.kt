@@ -23,17 +23,18 @@ class PlayerStatsFragment : Fragment() {
 
         val player: Player = arguments?.getSerializable("PlayerOverallStats") as Player
         val wn8:Double = arguments?.getDouble("WN8") as Double
+        val server:String = arguments?.getString("Server") as String
         val bundle = Bundle()
         val fragments:ArrayList<Fragment> = ArrayList()
         val pagerAdapter = ViewPagerAdapter(fragments, activity as AppCompatActivity)
         fragments.add(PlayerOverallStatsFragment())
-        // TODO: 22.04.2022 Validation to check is user tracking by user which is already login in app.
+        // TODO: 22.04.2022 Validation to check is user tracking by user whose already login in app.
         fragments.add(PlayerYesterdayStatsFragment())
 
         for(f in fragments){
-
             bundle.putSerializable("PlayerOverallStats",player)
             bundle.putDouble("WN8",wn8)
+            bundle.putString("Server",server)
             f.arguments = bundle
         }
 

@@ -28,6 +28,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -69,6 +70,7 @@ class PlayerFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var playerClanLogoView: ImageView
     private lateinit var playerFragmentsTab: TabLayout
+    private val firestore = FirebaseFirestore.getInstance()
 
 
 
@@ -287,7 +289,7 @@ class PlayerFragment : Fragment() {
                                                             playerFragmentsPager.visibility =
                                                                 View.VISIBLE
                                                             progressBar.visibility = View.INVISIBLE
-                                                            setingVisibilityForTrackerButton()
+                                                            setingVisibilityForTrackerButton(spinner.selectedItem.toString(),accountId)
                                                             nicknameSearchAutoCompleteTextView.text.clear()
 
                                                         }
@@ -358,12 +360,24 @@ class PlayerFragment : Fragment() {
             }
     }
 
-    private fun setingVisibilityForTrackerButton(){
+    private fun setingVisibilityForTrackerButton(server: String, accountID: String){
         if(nicknameSearchAutoCompleteTextView.text.toString().equals(logedUserNickname,true)) {
             trackerButton.visibility = View.INVISIBLE
         } else {
             trackerButton.visibility = View.VISIBLE
         }
+
+        firestore.collection("followingusers")
+            .document(logedUserNickname)
+            .collection(server).document(accountID)
+            .get().addOnCompleteListener {
+                    task ->
+                if (task.isSuccessful && task.result.data != null) {
+                    trackerButton.visibility = View.INVISIBLE
+                }else {
+                    trackerButton.visibility = View.VISIBLE
+                }
+            }
     }
 
     private fun colorBackgroundWithWn8(wn8: Double) {

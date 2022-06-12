@@ -43,17 +43,33 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/editTextNickname"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
-            android:ems="10"
-            android:hint="In-Game Nickname"
-            android:inputType="textPersonName"
-            android:textColorHint="#FF8E8E8E"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextNickname"
+                android:layout_width="222dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
+                android:ems="10"
+                android:hint="In-Game Nickname"
+                android:inputType="textPersonName"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FF8E8E8E"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="50sp"
+                android:layout_marginEnd="5dp"
+                android:colorBackground="#1E1E1E"
+                android:dropDownWidth="110sp"
+                android:textAlignment="center"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/signUpButton"

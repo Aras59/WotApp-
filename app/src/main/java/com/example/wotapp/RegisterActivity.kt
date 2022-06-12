@@ -3,14 +3,19 @@ package com.example.wotapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import players.interfaces.PlayersInterface
+import players.playerInfo.PlayerInfo
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -19,6 +24,8 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var editTextPassword: EditText
     private lateinit var editTextNickname: EditText
     private lateinit var signUpButton: Button
+    private lateinit var spinner: Spinner
+    private lateinit var serverSpinnerAdapter: ArrayAdapter<CharSequence>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +35,11 @@ class RegisterActivity : AppCompatActivity() {
         editTextEmail = findViewById(R.id.editTextEmail)
         editTextPassword = findViewById(R.id.editTextPassword)
         editTextNickname = findViewById(R.id.editTextNickname)
+        spinner = findViewById(R.id.spinner)
+        serverSpinnerAdapter = ArrayAdapter.createFromResource(this,R.array.regions
+            ,R.layout.spinner_list)
+        serverSpinnerAdapter.setDropDownViewResource(R.layout.spinner_list)
+        spinner.adapter = serverSpinnerAdapter
 
         signUpButton.setOnClickListener {
             val email = editTextEmail.text.toString()
@@ -41,7 +53,7 @@ class RegisterActivity : AppCompatActivity() {
                         val document = task.result
                         if(!document.exists()) {
                             if(email!="" && password !="" && nickname!="") {
-                                createAccount(email,password,nickname)
+                                createAccount(email,password,nickname,spinner.selectedItem.toString())
                             }
                         }else{
                             Toast.makeText(baseContext, "Authentication failed. User with this nickname already exist!",
@@ -66,9 +78,60 @@ class RegisterActivity : AppCompatActivity() {
         }
 
     }
+    private fun createAccount(email: String, password: String, nickname: String, server: String) {
+        val firestore = FirebaseFirestore.getInstance()
+        val playersInterface = when(server){
+            "EU" -> {
+                PlayersInterface.createEU()
+            }
+            "RU" -> {
+                PlayersInterface.createRU()
+            }
+            "ASIA" -> {
+                PlayersInterface.createASIA()
+            }
+            else -> {
+                PlayersInterface.createNA()
+            }
+        }
+
+        val getPlayers = playersInterface.getPlayers(nickname)
+        getPlayers.enqueue(object : Callback<PlayerInfo> {
+            override fun onResponse(call: Call<PlayerInfo>, response: Response<PlayerInfo>) {
+                if (response.body()?.status != "error" && response.body()?.meta?.count != 0) {
+                    val accountId = response.body()?.data?.first()?.account_id.toString()
+                    val nickname = response.body()?.data?.first()?.nickname!!
+                    val formatted = LocalDateTime.now()
+                        .format(DateTimeFormatter.ofPattern("EE MMM dd yyyy"))
+
+                    val followedUserData = hashMapOf(
+                        "account_id" to accountId,
+                        "nickname" to nickname,
+                        "server" to server,
+                        "followingdate" to formatted
+                    )
+                    firestore.collection("followedusers").document(accountId)
+                        .set(followedUserData)
+                    firestore.collection("followingusers").document(nickname)
+                        .collection(server).document(accountId).set(followedUserData)
+                    createUser(email, password, server, nickname, firestore)
+                }
+                else {
+                    Toast.makeText(baseContext, "Account with this username not exist in WOT database.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onFailure(call: Call<PlayerInfo>, t: Throwable) {
+                Toast.makeText(baseContext, "Problem with internet connection!",
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
 
 
-    private fun createAccount(email: String, password: String, nickname: String) {
+
+    }
+
+    private fun createUser(email: String, password: String, server: String, nickname: String, firestore: FirebaseFirestore){
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -80,12 +143,13 @@ class RegisterActivity : AppCompatActivity() {
                     val userCredential = hashMapOf(
                         "email" to email,
                         "nickname" to nickname,
+                        "server" to server,
                         "uID" to user.uid
                     )
 
-                    val usersFirestoreDataBase = FirebaseFirestore.getInstance()
-                    usersFirestoreDataBase.collection("Users")
-                        .document(nickname).set(userCredential)
+
+                    firestore.collection("Users").document(server)
+                        .collection(nickname).document("data").set(userCredential)
 
                     Toast.makeText(baseContext, "Authentication Success.",
                         Toast.LENGTH_SHORT).show()

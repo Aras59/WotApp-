@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        Toast.makeText(baseContext, "Witaj! "+auth.currentUser!!.displayName,
+        Toast.makeText(baseContext, "Hello! "+auth.currentUser!!.displayName,
             Toast.LENGTH_SHORT).show()
         
     }
