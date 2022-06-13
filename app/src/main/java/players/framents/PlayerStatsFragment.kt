@@ -30,6 +30,7 @@ class PlayerStatsFragment : Fragment() {
         fragments.add(PlayerOverallStatsFragment())
         // TODO: 22.04.2022 Validation to check is user tracking by user whose already login in app.
         fragments.add(PlayerYesterdayStatsFragment())
+        fragments.add(PlayerDateStatsFragment())
 
         for(f in fragments){
             bundle.putSerializable("PlayerOverallStats",player)

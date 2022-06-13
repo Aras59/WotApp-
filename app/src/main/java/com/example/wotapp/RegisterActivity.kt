@@ -105,7 +105,7 @@ class RegisterActivity : AppCompatActivity() {
                         .format(DateTimeFormatter.ofPattern("EE MMM dd yyyy"))
 
                     val followedUserData = hashMapOf(
-                        "account_id" to accountId,
+                        "account_id" to accountId.toInt(),
                         "nickname" to nickname,
                         "server" to server,
                         "followingdate" to formatted
