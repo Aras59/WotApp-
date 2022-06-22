@@ -126,6 +126,7 @@ class PlayerFragment : Fragment() {
         trackerButton.setOnClickListener {
             if (nickname != "") {
                 addPlayerToFollowingList(nickname)
+                trackerButton.visibility = View.INVISIBLE
             } else {
                 Toast.makeText(activity,"Cannot follow this player!", Toast.LENGTH_LONG).show()
             }

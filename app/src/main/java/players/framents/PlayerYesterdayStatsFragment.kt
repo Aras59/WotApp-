@@ -127,6 +127,19 @@ class PlayerYesterdayStatsFragment : Fragment() {
             val exp = (player.statistics.all.xp - stats.get("xp")
                 .toString().toDouble())/battles.toDouble()
             expView.text = " "+BigDecimal(exp).setScale(2,RoundingMode.HALF_EVEN).toString()+" XP"
+        }else{
+            battlesView.text = " $battles "
+            victoryBattlesView.text = " 0 "
+            victoryPercentView.text = " 0 %"
+            survivedBattlesView.text = " 0 "
+            survivedPercentView.text = " 0 %"
+            avgDmgView.text = " 0.0 "
+            avgAsistView.text = " 0.0 "
+            avgDestroyedTankView.text = " 0 "
+            hitRatioView.text = " 0 %"
+            piercingsShotsView.text = " 0 "
+            piercingsShotsPerBattleView.text = " 0 "
+            expView.text = " 0 XP"
         }
     }
 
