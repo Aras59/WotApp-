@@ -33,6 +33,8 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import okhttp3.ResponseBody
+import players.framents.Chart
+import players.framents.GraphsFragment
 import players.framents.PlayerStatsFragment
 import players.framents.PlayerVehicleFragment
 import players.playerInfo.PlayerInfo
@@ -460,6 +462,7 @@ class PlayerFragment : Fragment() {
 
             playerFragmentsPager.adapter = pagerAdapter
             fragments.add(PlayerStatsFragment())
+            fragments.add(Chart())
             fragments.add(PlayerVehicleFragment())
             for(f in fragments){
                 val listStats = ListStats(listOfStatsPerTanks!!)
@@ -472,7 +475,8 @@ class PlayerFragment : Fragment() {
             TabLayoutMediator(playerFragmentsTab, playerFragmentsPager)
             { tab, position ->
                 if (position == 0) tab.text = "Player Stats"
-                if (position == 1) tab.text = "Player Vehicles"
+                if (position == 1) tab.text = "Graphs"
+                if (position == 2) tab.text = "Player Vehicles"
             }.attach()
     }
 
