@@ -22,7 +22,12 @@
                 android:id="@+id/dmgbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginBottom="3sp"
                 android:layout_weight="1"
+                android:background="@drawable/border"
                 android:text="Damage" />
 
             <Button
@@ -30,14 +35,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Wins" />
+                android:background="@drawable/border"
+                android:text="Wins"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginBottom="3sp"/>
 
             <Button
                 android:id="@+id/assistButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Assist" />
+                android:background="@drawable/border"
+                android:text="Assist"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="3sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginBottom="3sp"/>
         </LinearLayout>
 
         <com.github.mikephil.charting.charts.LineChart

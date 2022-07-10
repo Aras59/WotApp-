@@ -176,11 +176,6 @@ class GraphsFragment : Fragment() {
                 }
             })
 
-            lineChart.axisLeft.setValueFormatter(object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String {
-                    return Math.floor(value.toDouble()).toInt().toString()
-                }
-            })
 
 
             val dataSet = ArrayList<ILineDataSet>()
