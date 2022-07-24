@@ -5,7 +5,10 @@
       <map>
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/drawable/border.xml" value="0.1605" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/drawable/white_border.xml" value="0.1" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/drawable/white_left_border.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_create_post.xml" value="0.1" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_forum_post.xml" value="0.22" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_main.xml" value="0.21510416666666668" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_new_post.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_new_post_forum.xml" value="0.25" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_chart.xml" value="0.22" />

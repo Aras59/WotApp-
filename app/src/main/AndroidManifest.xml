@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WotApp">
         <activity
+            android:name=".ForumPostActivity"
+            android:exported="false" />
+        <activity
             android:name=".NewPostForumActivity"
             android:exported="false"
             android:screenOrientation="portrait"
