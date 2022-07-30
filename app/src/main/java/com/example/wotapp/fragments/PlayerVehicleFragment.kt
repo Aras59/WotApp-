@@ -12,6 +12,9 @@ import android.widget.*
 import com.example.wotapp.R
 import com.example.wotapp.models.playerVehicleStats.ListStats
 import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.wotapp.adapter.VehicleRecycleViewAdapter
 import okhttp3.ResponseBody
 import com.example.wotapp.models.achive.AchiveReponse
 import com.example.wotapp.interfaces.PlayersInterface
@@ -23,17 +26,22 @@ import retrofit2.Response
 import java.lang.StringBuilder
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.util.stream.Collectors
 
 
 class PlayerVehicleFragment : Fragment() {
-    private lateinit var playerVehicleTable: TableLayout
     private lateinit var progressBar: ProgressBar
     private lateinit var playersInterface: PlayersInterface
     private lateinit var getAchieveList: Call<AchiveReponse>
     private lateinit var getVehicleList: Call<VehicleRespond>
     private lateinit var getMarkOfMasteryImage: Call<ResponseBody>
+    private lateinit var vehicleRecycleView: RecyclerView
     private lateinit var listStats: ListStats
     private lateinit var markOfMasteryBitmap: HashMap<String,Bitmap>
+    private lateinit var nationSpinner: Spinner
+    private lateinit var tierSpinner: Spinner
+    private lateinit var typeSpinner: Spinner
+    private lateinit var filterButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         listStats = arguments?.getSerializable("PlayerListStats") as ListStats
@@ -66,7 +74,6 @@ class PlayerVehicleFragment : Fragment() {
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 progressBar.visibility = View.INVISIBLE
-                Toast.makeText(activity,"Problem with achievements icon download",Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -77,15 +84,32 @@ class PlayerVehicleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_player_vehicle, container, false)
-        playerVehicleTable = view.findViewById(R.id.playerVehicleTable)
         progressBar = view.findViewById(R.id.progressBar3)
+        vehicleRecycleView = view.findViewById(R.id.vehiclesRecycleView)
+        filterButton = view.findViewById(R.id.fillterButton)
+        vehicleRecycleView.layoutManager = LinearLayoutManager(activity)
+        nationSpinner = view.findViewById(R.id.nationSpinner)
+        val nationAdapter = activity?.let { ArrayAdapter.createFromResource(it,R.array.nationArray,
+            R.layout.spinner_list) } as ArrayAdapter<CharSequence>
+        nationAdapter.setDropDownViewResource(R.layout.spinner_list)
+        nationSpinner.adapter = nationAdapter
+        typeSpinner = view.findViewById(R.id.typeSpinner)
+        val typeAdapter = activity?.let { ArrayAdapter.createFromResource(it,R.array.typeArray,
+            R.layout.spinner_list) } as ArrayAdapter<CharSequence>
+        nationAdapter.setDropDownViewResource(R.layout.spinner_list)
+        typeSpinner.adapter = typeAdapter
+        tierSpinner = view.findViewById(R.id.tierSpinner)
+        val tierAdapter =  activity?.let { ArrayAdapter.createFromResource(it,R.array.tierArray,
+            R.layout.spinner_list) } as ArrayAdapter<CharSequence>
+        tierAdapter.setDropDownViewResource(R.layout.spinner_list)
+        tierSpinner.adapter = tierAdapter
         progressBar.visibility = View.VISIBLE
 
-
+        val vehicleStatsForViewList: MutableList<VehicleStatsForView> = arrayListOf()
         getVehicleList.enqueue(object : Callback<VehicleRespond>{
             override fun onResponse(call: Call<VehicleRespond>, response: Response<VehicleRespond>) {
                 if(response.body()?.status!="error"){
-                    val vehicleStatsForViewList: MutableList<VehicleStatsForView> = arrayListOf()
+
                     val vehicleMap = response.body()?.data
                     for(playerStatisticOnTank in listStats.statsList){
                         val vehicle = vehicleMap?.get(playerStatisticOnTank.tank_id.toString())
@@ -93,7 +117,6 @@ class PlayerVehicleFragment : Fragment() {
                             vehicleStatsForViewList.add(VehicleStatsForView(playerStatisticOnTank,vehicle))
                         }
                     }
-
                     initializeView(vehicleStatsForViewList)
                     progressBar.visibility = View.INVISIBLE
                 }else{
@@ -108,123 +131,57 @@ class PlayerVehicleFragment : Fragment() {
 
         })
 
+        filterButton.setOnClickListener {
+            var vehicleList = ArrayList<VehicleStatsForView>()
+            vehicleList = vehicleList
+                .stream()
+                .filter { i -> i.tank.nation.equals(nationSpinner.selectedItem.toString())}
+                .collect(Collectors.toList()) as ArrayList<VehicleStatsForView>
+            filterVehicle(vehicleStatsForViewList)
+        }
+
         return view
     }
 
+    private fun filterVehicle(vehicleStatsForViewList: MutableList<VehicleStatsForView>){
+        val adapter = vehicleRecycleView.adapter as VehicleRecycleViewAdapter
+        var vehicleList = ArrayList<VehicleStatsForView>()
+        vehicleList.addAll(vehicleStatsForViewList)
+        if("-".equals(nationSpinner.selectedItem.toString())
+            && "-".equals(typeSpinner.selectedItem.toString())
+            && "-".equals(tierSpinner.selectedItem.toString())) {
+            adapter.updateData(vehicleList)
+            return
+        }
+        if(!"-".equals(nationSpinner.selectedItem.toString())){
+            vehicleList = vehicleList
+                .stream()
+                .filter { i -> i.tank.nation.equals(nationSpinner.selectedItem.toString(),true)}
+                .collect(Collectors.toList()) as ArrayList<VehicleStatsForView>
+        }
+        if(!"-".equals(typeSpinner.selectedItem.toString())){
+            vehicleList = vehicleList
+                .stream()
+                .filter { i -> i.tank.type.equals(typeSpinner.selectedItem.toString(),true)}
+                .collect(Collectors.toList()) as ArrayList<VehicleStatsForView>
+        }
+        if(!"-".equals(tierSpinner.selectedItem.toString())){
+            vehicleList = vehicleList
+                .stream()
+                .filter { i -> i.tank.tier == tierSpinner.selectedItem.toString().toInt()}
+                .collect(Collectors.toList()) as ArrayList<VehicleStatsForView>
+        }
+        adapter.updateData(vehicleList)
+    }
 
-    fun initializeView(vehicleStatsForViewList: MutableList<VehicleStatsForView>) {
+
+    private fun initializeView(vehicleStatsForViewList: MutableList<VehicleStatsForView>) {
         vehicleStatsForViewList.sortByDescending { it.tank.nation }
         vehicleStatsForViewList.sortByDescending { it.tank.tier }
-        for(vehicleStats in vehicleStatsForViewList) {
-            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT,1.0f)
-            val tableRow = TableRow(activity)
-            tableRow.background = resources.getDrawable(R.drawable.border)
-            tableRow.layoutParams = params
-
-
-            val firstLayout = LinearLayout(context)
-            firstLayout.orientation = LinearLayout.VERTICAL
-
-            val secondLayout = LinearLayout(context)
-            secondLayout.orientation = LinearLayout.HORIZONTAL
-
-            val thirdLayout = LinearLayout(context)
-            thirdLayout.orientation = LinearLayout.VERTICAL
-
-            val tankNameView = TextView(activity)
-            tankNameView.setTextColor(Color.WHITE)
-            tankNameView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            tankNameView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            tankNameView.textSize = 24.0f
-            tankNameView.text = vehicleStats.tank.name
-
-            val tankLevelView = TextView(activity)
-            tankLevelView.setTextColor(Color.WHITE)
-            tankLevelView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            tankLevelView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            tankLevelView.textSize = 20.0f
-            tankLevelView.text = StringBuilder(vehicleStats.tank.tier.toString()+ " Tier " + vehicleStats.tank.type.replaceFirstChar { it.uppercaseChar() })
-
-
-
-            val tankStats = TextView(activity)
-            tankStats.setTextColor(Color.WHITE)
-            tankStats.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            tankStats.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            tankStats.textSize = 24.0f
-            tankStats.text = StringBuilder("Stats")
-
-            val tankBattleView = TextView(activity)
-            tankBattleView.setTextColor(Color.WHITE)
-            tankBattleView.textSize = 22.0f
-            tankBattleView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            tankBattleView.text = StringBuilder(" "+vehicleStats.statistic.random.battles.toString())
-            val params1 = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            params1.topMargin = 10
-            tankBattleView.layoutParams = params1
-
-            val tankVictoryView = TextView(activity)
-            tankVictoryView.setTextColor(Color.WHITE)
-            tankVictoryView.textSize = 22.0f
-            tankVictoryView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            tankVictoryView.text = StringBuilder(" " + BigDecimal((vehicleStats.statistic.random
-                .wins.toDouble() / vehicleStats.statistic.random.battles.toDouble())*100.0)
-                .setScale(2, RoundingMode.HALF_EVEN).toString()+"%")
-            tankBattleView.layoutParams = params1
-
-
-            val tankDMGView = TextView(activity)
-            tankDMGView.setTextColor(Color.WHITE)
-            tankDMGView.textSize = 22.0f
-            tankDMGView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            tankDMGView.text = StringBuilder(" " + BigDecimal((vehicleStats.statistic.random
-                .damage_dealt.toDouble()/vehicleStats.statistic.random.battles.toDouble()))
-                .setScale(0, RoundingMode.HALF_EVEN).toString())
-            tankDMGView.layoutParams = params1
-
-            val tankImageView = ImageView(activity)
-            val layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT,2.0f)
-            tankImageView.layoutParams = layoutParams
-
-            val masteryImageView = ImageView(activity)
-            tankImageView.layoutParams = layoutParams
-
-
-            val getVehicleLogo = playersInterface.getVehicleLogo(vehicleStats.tank.images.big_icon)
-
-
-            getVehicleLogo.enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    val buffer: ByteArray = response.body()!!.bytes()
-                    val bitmap = BitmapFactory.decodeByteArray(buffer, 0, buffer.size)
-                    tankImageView.setImageBitmap(bitmap)
-                }
-
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {}
-
-            })
-
-            masteryImageView.setImageBitmap(markOfMasteryBitmap.get("3mark"))
-            when(vehicleStats.statistic.mark_of_mastery){
-                4 -> masteryImageView.setImageBitmap(markOfMasteryBitmap.get("Acemark"))
-                2 -> masteryImageView.setImageBitmap(markOfMasteryBitmap.get("2mark"))
-                3 -> masteryImageView.setImageBitmap(markOfMasteryBitmap.get("1mark"))
-            }
-
-            firstLayout.addView(tankNameView)
-            firstLayout.addView(tankLevelView)
-            secondLayout.addView(tankImageView,params)
-            thirdLayout.addView(tankStats)
-            thirdLayout.addView(masteryImageView)
-            thirdLayout.addView(tankBattleView)
-            thirdLayout.addView(tankVictoryView)
-            thirdLayout.addView(tankDMGView)
-            firstLayout.addView(secondLayout,params)
-            tableRow.addView(firstLayout,500,500)
-            tableRow.addView(thirdLayout,600,500)
-            playerVehicleTable.addView(tableRow,params)
-        }
-
+        val vehicleList = ArrayList<VehicleStatsForView>()
+        vehicleList.addAll(vehicleStatsForViewList)
+        val vehicleAdapter = VehicleRecycleViewAdapter(vehicleList,markOfMasteryBitmap)
+        vehicleRecycleView.adapter = vehicleAdapter
     }
 
 }

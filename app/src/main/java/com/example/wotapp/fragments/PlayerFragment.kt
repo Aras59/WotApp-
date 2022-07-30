@@ -46,9 +46,7 @@ class PlayerFragment : Fragment() {
     private lateinit var nicknameSearchAutoCompleteTextView: AutoCompleteTextView
     private lateinit var playersInterface: PlayersInterface
     private lateinit var clanDetailsInterface: ClanDetailsInterface
-
     private lateinit var searchButton: Button
-
     private lateinit var serverLogo: ImageView
     private lateinit var titleNickView: TextView
     private lateinit var playerClanNameTextView: TextView
@@ -61,7 +59,6 @@ class PlayerFragment : Fragment() {
     private var accountId:String = ""
     private lateinit var logedUserNickname: String
     private lateinit var trackerButton:Button
-
     private lateinit var playerDataPager: ViewPager2
     private lateinit var playerFragmentsPager: ViewPager2
     private lateinit var calculator: Wn8Calculator
@@ -120,15 +117,6 @@ class PlayerFragment : Fragment() {
 
         spinner.adapter = serverSpinnerAdapter
 
-
-        trackerButton.setOnClickListener {
-            if (nickname != "") {
-                addPlayerToFollowingList(nickname)
-                trackerButton.visibility = View.INVISIBLE
-            } else {
-                Toast.makeText(activity,"Cannot follow this player!", Toast.LENGTH_LONG).show()
-            }
-        }
 
         nicknameSearchAutoCompleteTextView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {
@@ -288,7 +276,7 @@ class PlayerFragment : Fragment() {
                                                             playerFragmentsPager.visibility =
                                                                 View.VISIBLE
                                                             progressBar.visibility = View.INVISIBLE
-                                                            setingVisibilityForTrackerButton(spinner.selectedItem.toString(),accountId)
+                                                            settingVisibilityForTrackerButton(spinner.selectedItem.toString(),accountId)
                                                             nicknameSearchAutoCompleteTextView.text.clear()
 
                                                         }
@@ -330,6 +318,19 @@ class PlayerFragment : Fragment() {
             }
         }
 
+        trackerButton.setOnClickListener {
+            if("Follow player".equals(trackerButton.text.toString())){
+                if (nickname != "") {
+                    addPlayerToFollowingList(nickname)
+                    trackerButton.visibility = View.INVISIBLE
+                } else {
+                    Toast.makeText(activity,"Cannot follow this player!", Toast.LENGTH_LONG).show()
+                }
+            }else{
+                removePlayerToFollowingList(accountId)
+            }
+        }
+
         return view
     }
 
@@ -347,7 +348,7 @@ class PlayerFragment : Fragment() {
             "server" to server,
             "usernickname" to auth.currentUser!!.displayName,
         )
-
+        trackerButton.text = "Unfollow Player"
         return functions
             .getHttpsCallable("addToFollowAndFollowingDataBase")
             .call(data)
@@ -359,7 +360,25 @@ class PlayerFragment : Fragment() {
             }
     }
 
-    private fun setingVisibilityForTrackerButton(server: String, accountID: String){
+    private fun removePlayerToFollowingList(accountID: String){
+        val server = when(spinner.selectedItem.toString()){
+            "EU" -> "EU"
+            "RU" -> "RU"
+            "ASIA" -> "ASIA"
+            else -> "NA"
+        }
+        firestore.collection("followingusers")
+            .document(logedUserNickname).collection(server).document(accountId)
+            .delete()
+            .addOnSuccessListener {
+                trackerButton.text = "Follow Player"
+                Toast.makeText(activity, "Successfully removed!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { Toast.makeText(activity, "Failed with removing!", Toast.LENGTH_SHORT).show() }
+
+    }
+
+    private fun settingVisibilityForTrackerButton(server: String, accountID: String){
         if(nicknameSearchAutoCompleteTextView.text.toString().equals(logedUserNickname,true)) {
             trackerButton.visibility = View.INVISIBLE
         } else {
@@ -372,9 +391,9 @@ class PlayerFragment : Fragment() {
             .get().addOnCompleteListener {
                     task ->
                 if (task.isSuccessful && task.result.data != null) {
-                    trackerButton.visibility = View.INVISIBLE
+                    trackerButton.text = "Unfollow player"
                 }else {
-                    trackerButton.visibility = View.VISIBLE
+                    trackerButton.text = "Follow Player"
                 }
             }
     }

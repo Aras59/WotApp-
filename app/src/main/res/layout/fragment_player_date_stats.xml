@@ -6,7 +6,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="480dp"
+        android:layout_height="400dp"
+        android:layout_marginBottom="50dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -311,19 +312,6 @@
                     android:textSize="21sp" />
             </TableRow>
         </TableLayout>
-
-        <TextView
-            android:id="@+id/accessInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5sp"
-            android:layout_marginRight="5sp"
-            android:layout_marginBottom="5sp"
-            android:background="@drawable/border"
-            android:text="You don't have access to stats from yesterday about this player."
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="19sp" />
 
     </LinearLayout>
 

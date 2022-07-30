@@ -36,7 +36,6 @@ class PlayerDateStatsFragment : Fragment() {
     private lateinit var piercingsShotsView: TextView
     private lateinit var piercingsShotsPerBattleView: TextView
     private lateinit var expView: TextView
-    private lateinit var accessInfo: TextView
     private lateinit var dateSpinner: Spinner
     private val auth = Firebase.auth
     private val fireStore = FirebaseFirestore.getInstance()
@@ -61,7 +60,6 @@ class PlayerDateStatsFragment : Fragment() {
         piercingsShotsView = view.findViewById(R.id.piercingsShotsView)
         piercingsShotsPerBattleView = view.findViewById(R.id.piercingsShotsPerBattleView)
         expView = view.findViewById(R.id.expView)
-        accessInfo = view.findViewById(R.id.accessInfo)
         dateSpinner = view.findViewById(R.id.dateSpinner)
 
         val player: Player = arguments?.getSerializable("PlayerOverallStats") as Player

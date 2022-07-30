@@ -19,15 +19,17 @@
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_graph.xml" value="0.1810344827586207" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_graphs.xml" value="0.22" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player.xml" value="0.21510416666666668" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player_date_stats.xml" value="0.2838541666666667" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player_overall_stats.xml" value="0.22" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player_stats.xml" value="0.1" />
-        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player_vehicle.xml" value="0.1" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player_vehicle.xml" value="0.18" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player_yesterday_stats.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/message_layout.xml" value="0.1363247863247863" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/message_view_design.xml" value="0.33" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/post_view_design.xml" value="0.1078125" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/spinner_category.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/spinner_list.xml" value="0.1" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/vehicle_view_design.xml" value="0.25" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/wykresy_layout.xml" value="0.19384057971014493" />
         <entry key="..\:/WotApp/app/src/main/res/drawable/border.xml" value="0.2203125" />
         <entry key="..\:/WotApp/app/src/main/res/drawable/ic_baseline_emoji_people_24.xml" value="0.2890625" />
