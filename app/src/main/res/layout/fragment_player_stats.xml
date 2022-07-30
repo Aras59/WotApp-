@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="players.framents.PlayerStatsFragment">
+    tools:context=".fragments.PlayerStatsFragment">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/playerStatsViewPager"

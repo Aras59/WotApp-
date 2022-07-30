@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/border"
-    tools:context=".NewPostForumActivity">
+    tools:context=".activities.NewPostForumActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,26 +20,29 @@
             android:text="Create Forum Post"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/headerPostText"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:ems="10"
-            android:hint="Post Title"
-            android:inputType="textPersonName"
-            android:textColor="#FFFFFF"
-            android:textColorHint="@color/browser_actions_title_color"
-            android:textSize="25dp" />
 
         <Spinner
             android:id="@+id/categorySpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/headerPostText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginRight="15sp"
+            android:ems="10"
+            android:hint=" Post Title"
+            android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
+            android:textColorHint="@color/browser_actions_title_color"
+            android:textSize="25dp" />
 
         <EditText
             android:id="@+id/postDescritpionText"
@@ -48,7 +51,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Post Descritpion"
+            android:hint=" Post Descritpion"
             android:inputType="textMultiLine"
             android:textColor="#FFFFFF"
             android:textColorHint="@color/browser_actions_title_color"
@@ -56,9 +59,10 @@
 
         <Button
             android:id="@+id/addPostButton"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="150dp"
-            android:text="Post" />
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginBottom="10dp"
+            android:text="Create Post" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

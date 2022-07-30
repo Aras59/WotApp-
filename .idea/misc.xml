@@ -9,11 +9,12 @@
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/drawable/white_border.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/drawable/white_left_border.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_create_post.xml" value="0.1" />
-        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_forum_post.xml" value="0.22" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_forum_post.xml" value="0.21510416666666668" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_main.xml" value="0.21510416666666668" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_new_post.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/activity_new_post_forum.xml" value="0.25" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_chart.xml" value="0.22" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_clan_members.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_forum.xml" value="0.22" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_graph.xml" value="0.1810344827586207" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_graphs.xml" value="0.22" />
@@ -22,6 +23,9 @@
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player_stats.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player_vehicle.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/fragment_player_yesterday_stats.xml" value="0.1" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/message_layout.xml" value="0.1363247863247863" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/message_view_design.xml" value="0.33" />
+        <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/post_view_design.xml" value="0.1078125" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/spinner_category.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/spinner_list.xml" value="0.1" />
         <entry key="..\:/WotApp/WotApp-/app/src/main/res/layout/wykresy_layout.xml" value="0.19384057971014493" />

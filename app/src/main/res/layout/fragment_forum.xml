@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/border"
-    tools:context="fragments.ForumFragment">
+    tools:context="com.example.wotapp.fragments.ForumFragment">
 
 
     <ScrollView
@@ -72,11 +72,10 @@
                     app:iconPadding="0dp" />
             </LinearLayout>
 
-            <TableLayout
-                android:id="@+id/postsTable"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/postsRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="580dp"
-                android:layout_marginTop="10sp" />
+                android:layout_height="500dp" />
 
         </LinearLayout>
     </ScrollView>
