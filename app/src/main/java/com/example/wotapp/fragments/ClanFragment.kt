@@ -46,7 +46,7 @@ class ClanFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view: View = inflater.inflate(R.layout.fragment_clan, container, false)
 
         clanAutoCompleteTextView = view.findViewById(R.id.clansAutoCompleteTextView)
@@ -64,37 +64,32 @@ class ClanFragment : Fragment() {
         progressBar = view.findViewById(R.id.progressBar)
         progressBar.visibility = View.INVISIBLE
 
-        var adapter = activity?.let {
+        val adapter = activity?.let {
             ArrayAdapter.createFromResource(
                 it,
                 R.array.regions,
                 R.layout.spinner_list
             )
         }
-        if (adapter != null) {
-            adapter.setDropDownViewResource(R.layout.spinner_list)
-        }
-        if (spinner != null) {
-            spinner.adapter = adapter
-        }
+        adapter?.setDropDownViewResource(R.layout.spinner_list)
+        spinner.adapter = adapter
 
 
         spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (clanAutoCompleteTextView.text.length > 2) {
-                    var clansInterface: Call<Clan>
-                    if (spinner.selectedItem.toString().equals("EU")) {
-                        clansInterface = ClanInterface.createEU()
+                    val clansInterface: Call<Clan> = if (spinner.selectedItem.toString().equals("EU")) {
+                        ClanInterface.createEU()
                             .getClan(clanAutoCompleteTextView.text.toString())
                     } else if (spinner.selectedItem.toString().equals("RU")) {
-                        clansInterface = ClanInterface.createRU()
+                        ClanInterface.createRU()
                             .getClan(clanAutoCompleteTextView.text.toString())
                     } else if (spinner.selectedItem.toString().equals("ASIA")) {
-                        clansInterface = ClanInterface.createASIA()
+                        ClanInterface.createASIA()
                             .getClan(clanAutoCompleteTextView.text.toString())
                     } else {
-                        clansInterface = ClanInterface.createNA()
+                        ClanInterface.createNA()
                             .getClan(clanAutoCompleteTextView.text.toString())
                     }
 
@@ -104,17 +99,16 @@ class ClanFragment : Fragment() {
                             if (response.body()?.status!="error") {
                                 if (response.body()?.data?.isNotEmpty() == true) {
 
-                                    var clanTags: List<String> = emptyList()
-                                    clanTags = response.body()?.data?.map { it.tag }!!
-                                    var clanTagsAdapter = activity?.let {
-                                        ArrayAdapter<String>(
+                                    val clanTags: List<String> = response.body()?.data?.map { it.tag }!!
+                                    val clanTagsAdapter = activity?.let {
+                                        ArrayAdapter(
                                             it,
                                             android.R.layout.simple_list_item_1,
                                             clanTags
                                         )
                                     }
                                     clanAutoCompleteTextView.setAdapter(clanTagsAdapter)
-                                    clanID = response.body()?.data?.first()?.clan_id.toString()!!
+                                    clanID = response.body()?.data?.first()?.clan_id.toString()
                                     clanTag = response.body()?.data?.first()?.tag!!
                                 }
                             } else {
@@ -150,27 +144,26 @@ class ClanFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 if (s != null) {
                     if (s.length > 2) {
-                        var clansInterface: Call<Clan>
-                        if (spinner.selectedItem.toString().equals("EU")) {
-                            clansInterface = ClanInterface.createEU().getClan(clanAutoCompleteTextView.text.toString())
+                        val clansInterface: Call<Clan> = if (spinner.selectedItem.toString().equals("EU")) {
+                            ClanInterface.createEU().getClan(clanAutoCompleteTextView.text.toString())
                         } else if (spinner.selectedItem.toString().equals("RU")) {
-                            clansInterface = ClanInterface.createRU().getClan(clanAutoCompleteTextView.text.toString())
+                            ClanInterface.createRU().getClan(clanAutoCompleteTextView.text.toString())
                         } else if (spinner.selectedItem.toString().equals("ASIA")) {
-                            clansInterface = ClanInterface.createASIA().getClan(clanAutoCompleteTextView.text.toString())
+                            ClanInterface.createASIA().getClan(clanAutoCompleteTextView.text.toString())
                         } else {
-                            clansInterface = ClanInterface.createNA().getClan(clanAutoCompleteTextView.text.toString())
+                            ClanInterface.createNA().getClan(clanAutoCompleteTextView.text.toString())
                         }
 
                         clansInterface.enqueue(object : Callback<Clan> { override fun onResponse(call: Call<Clan>, response: Response<Clan>) {
                                 if (response.body()?.status!="error") {
                                     if (response.body()?.data?.isNotEmpty() == true) {
-                                        var clanTags: List<String> = emptyList()
-                                        clanTags = response.body()?.data?.map { it.tag }!!
-                                        var clanTagsAdapter = activity?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_1,clanTags)
+                                        val clanTags: List<String> = response.body()?.data?.map { it.tag }!!
+                                        val clanTagsAdapter = activity?.let {
+                                            ArrayAdapter(it, android.R.layout.simple_list_item_1,clanTags)
                                         }
                                         clanAutoCompleteTextView.setAdapter(clanTagsAdapter)
                                         clanID =
-                                            response.body()?.data?.first()?.clan_id.toString()!!
+                                            response.body()?.data?.first()?.clan_id.toString()
                                         clanTag = response.body()?.data?.first()?.tag!!
                                     }
                                 }
@@ -186,38 +179,36 @@ class ClanFragment : Fragment() {
             if (clanAutoCompleteTextView.text.length > 2) {
                 progressBar.visibility = View.VISIBLE
 
-                var clansInterface: Call<Clan>
-                if (spinner.selectedItem.toString().equals("EU")) {
-                    clansInterface = ClanInterface.createEU().getClan(clanAutoCompleteTextView.text.toString())
+                val clansInterface: Call<Clan> = if (spinner.selectedItem.toString().equals("EU")) {
+                    ClanInterface.createEU().getClan(clanAutoCompleteTextView.text.toString())
                 } else if (spinner.selectedItem.toString().equals("RU")) {
-                    clansInterface = ClanInterface.createRU().getClan(clanAutoCompleteTextView.text.toString())
+                    ClanInterface.createRU().getClan(clanAutoCompleteTextView.text.toString())
                 } else if (spinner.selectedItem.toString().equals("ASIA")) {
-                    clansInterface = ClanInterface.createASIA().getClan(clanAutoCompleteTextView.text.toString())
+                    ClanInterface.createASIA().getClan(clanAutoCompleteTextView.text.toString())
                 } else {
-                    clansInterface = ClanInterface.createNA().getClan(clanAutoCompleteTextView.text.toString())
+                    ClanInterface.createNA().getClan(clanAutoCompleteTextView.text.toString())
                 }
 
                 clansInterface.enqueue(object : Callback<Clan> {
                     override fun onResponse(call: Call<Clan>, response: Response<Clan>) {
                         if (response.body()?.status!="error") {
                             if (response.body()?.data?.isNotEmpty() == true) {
-                                var clanTags: List<String> = emptyList()
-                                clanTags = response.body()?.data?.map { it.tag }!!
-                                var clanTagsAdapter = activity?.let { ArrayAdapter<String>(it, android.R.layout.simple_list_item_1, clanTags) }
+                                val clanTags: List<String> = response.body()?.data?.map { it.tag }!!
+                                val clanTagsAdapter = activity?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, clanTags) }
 
                                 clanAutoCompleteTextView.setAdapter(clanTagsAdapter)
-                                clanID = response.body()?.data?.first()?.clan_id.toString()!!
+                                clanID = response.body()?.data?.first()?.clan_id.toString()
                                 clanTag = response.body()?.data?.first()?.tag!!
 
-                                var clanDetailsInterface: Call<ClanDetails>
-                                if (spinner.selectedItem.toString().equals("EU")) {
-                                    clanDetailsInterface = ClanDetailsInterface.createEU().getClanDetails(clanID)
+                                val clanDetailsInterface: Call<ClanDetails> =
+                                    if (spinner.selectedItem.toString().equals("EU")) {
+                                    ClanDetailsInterface.createEU().getClanDetails(clanID)
                                 } else if (spinner.selectedItem.toString().equals("RU")) {
-                                    clanDetailsInterface = ClanDetailsInterface.createRU().getClanDetails(clanID)
+                                    ClanDetailsInterface.createRU().getClanDetails(clanID)
                                 } else if (spinner.selectedItem.toString().equals("ASIA")) {
-                                    clanDetailsInterface = ClanDetailsInterface.createASIA().getClanDetails(clanID)
+                                    ClanDetailsInterface.createASIA().getClanDetails(clanID)
                                 } else {
-                                    clanDetailsInterface = ClanDetailsInterface.createNA().getClanDetails(clanID)
+                                    ClanDetailsInterface.createNA().getClanDetails(clanID)
                                 }
 
                                 clanDetailsInterface.enqueue(object : Callback<ClanDetails> {
@@ -225,9 +216,9 @@ class ClanFragment : Fragment() {
                                         if (response.body() != null) {
                                             //CLAN LOGO DOWNLOAD
                                             val logoUrl: String? =
-                                                response.body()!!.clan.get(clanID)?.emblems?.x195?.portal
+                                                response.body()!!.clan[clanID]?.emblems?.x195?.portal
                                             if (logoUrl != null) {
-                                                var logoCall: Call<ResponseBody>
+                                                val logoCall: Call<ResponseBody>
                                                 if (spinner.selectedItem.toString().equals("EU")) {
                                                     logoCall = ClanDetailsInterface.createEU()
                                                         .getClanLogo(logoUrl)
@@ -274,45 +265,42 @@ class ClanFragment : Fragment() {
 
                                             //Clan Ratings
 
-                                            var clanRatings: Call<ClanRatings>
-                                            if (spinner.selectedItem.toString().equals("EU"))
-                                                clanRatings = ClanRatingsInterface.createEU().getClanRatings(clanID)
+                                            val clanRatings: Call<ClanRatings> =
+                                                if (spinner.selectedItem.toString().equals("EU"))
+                                                ClanRatingsInterface.createEU().getClanRatings(clanID)
                                             else if (spinner.selectedItem.toString().equals("RU"))
-                                                clanRatings = ClanRatingsInterface.createRU().getClanRatings(clanID)
+                                                ClanRatingsInterface.createRU().getClanRatings(clanID)
                                             else if (spinner.selectedItem.toString().equals("ASIA"))
-                                                clanRatings = ClanRatingsInterface.createASIA().getClanRatings(clanID)
+                                                ClanRatingsInterface.createASIA().getClanRatings(clanID)
                                             else
-                                                clanRatings = ClanRatingsInterface.createNA().getClanRatings(clanID)
+                                                ClanRatingsInterface.createNA().getClanRatings(clanID)
 
-                                            var Sh10Elo: Int = 1000
-                                            var Sh8Elo: Int = 1000
-                                            var Sh6Elo: Int = 1000
-                                            var Sh6pos: Int = 0
-                                            var Sh8pos: Int = 0
-                                            var Sh10pos: Int = 0
+                                            var sh10elo = 1000
+                                            var sh8elo = 1000
+                                            var sh6elo = 1000
+                                            var sh6pos = 0
+                                            var sh8pos = 0
+                                            var sh10pos = 0
 
                                             val parentRespond = response
                                             clanRatings.enqueue(object : Callback<ClanRatings> {
                                                 override fun onResponse(call: Call<ClanRatings>, response: Response<ClanRatings>) {
                                                     if (response.body() != null) {
                                                         if (response.body()?.ratings?.get(clanID)?.fb_elo_rating_10?.value != null)
-                                                            Sh10Elo = response.body()?.ratings?.get(clanID)?.fb_elo_rating_10?.value!!
+                                                            sh10elo = response.body()?.ratings?.get(clanID)?.fb_elo_rating_10?.value!!
 
-                                                        if (response.body()?.ratings?.get(clanID)?.fb_elo_rating_10!!.rank != null)
-                                                            Sh10pos = response.body()?.ratings?.get(clanID)?.fb_elo_rating_10?.rank!!
+                                                        sh10pos = response.body()?.ratings?.get(clanID)?.fb_elo_rating_10?.rank!!
 
                                                         if (response.body()?.ratings?.get(clanID)?.fb_elo_rating_8?.value != null)
-                                                            Sh8Elo = response.body()?.ratings?.get(clanID)?.fb_elo_rating_8?.value!!
+                                                            sh8elo = response.body()?.ratings?.get(clanID)?.fb_elo_rating_8?.value!!
 
-                                                        if (response.body()?.ratings?.get(clanID)?.fb_elo_rating_8!!.rank != null)
-                                                            Sh8pos = response.body()?.ratings?.get(clanID)?.fb_elo_rating_8?.rank!!
+                                                        sh8pos = response.body()?.ratings?.get(clanID)?.fb_elo_rating_8?.rank!!
 
                                                         if (response.body()?.ratings?.get(clanID)?.fb_elo_rating_6?.value != null)
 
-                                                            Sh6Elo = response.body()?.ratings?.get(clanID)?.fb_elo_rating_6?.value!!
+                                                            sh6elo = response.body()?.ratings?.get(clanID)?.fb_elo_rating_6?.value!!
 
-                                                        if (response.body()?.ratings?.get(clanID)?.fb_elo_rating_6!!.rank != null)
-                                                            Sh6pos = response.body()?.ratings?.get(clanID)?.fb_elo_rating_6?.rank!!
+                                                        sh6pos = response.body()?.ratings?.get(clanID)?.fb_elo_rating_6?.rank!!
 
                                                     }
 
@@ -339,12 +327,12 @@ class ClanFragment : Fragment() {
                                                             "ClanCreator",
                                                             parentRespond.body()?.clan?.get(clanID)?.creator_name
                                                         )
-                                                        bundle.putInt("Sh10pos", Sh10pos)
-                                                        bundle.putInt("Sh8pos", Sh8pos)
-                                                        bundle.putInt("Sh6pos", Sh6pos)
-                                                        bundle.putInt("Sh10elo", Sh10Elo)
-                                                        bundle.putInt("Sh8elo", Sh8Elo)
-                                                        bundle.putInt("Sh6elo", Sh6Elo)
+                                                        bundle.putInt("Sh10pos", sh10pos)
+                                                        bundle.putInt("Sh8pos", sh8pos)
+                                                        bundle.putInt("Sh6pos", sh6pos)
+                                                        bundle.putInt("Sh10elo", sh10elo)
+                                                        bundle.putInt("Sh8elo", sh8elo)
+                                                        bundle.putInt("Sh6elo", sh6elo)
 
                                                         if (parentRespond.body()?.clan?.get(clanID)?.accepts_join_requests != null)
                                                             bundle.putBoolean("JoinRequest", parentRespond.body()?.clan?.get(clanID)?.accepts_join_requests!!)
