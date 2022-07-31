@@ -20,7 +20,7 @@ import java.util.ArrayList
 import java.util.HashMap
 
 class ForumFragment : Fragment() {
-    private lateinit var addPostButton: FloatingActionButton
+    private lateinit var addPostButton: ImageButton
     private lateinit var category: Spinner
     private lateinit var categorySpinnerAdapter: ArrayAdapter<CharSequence>
     private val firestore = FirebaseFirestore.getInstance()

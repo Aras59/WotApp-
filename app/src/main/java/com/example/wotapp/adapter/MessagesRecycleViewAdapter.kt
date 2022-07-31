@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wotapp.R
+import com.example.wotapp.models.playerVehicleStats.VehicleStatsForView
 import com.example.wotapp.models.recycleViewModels.MessagesItemModel
 
-class MessagesRecycleViewAdapter(private val messagesList: List<MessagesItemModel>) : RecyclerView.Adapter<MessagesRecycleViewAdapter.ViewHolder>()  {
+class MessagesRecycleViewAdapter(private val messagesList: ArrayList<MessagesItemModel>) : RecyclerView.Adapter<MessagesRecycleViewAdapter.ViewHolder>()  {
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val messageTextView: TextView = itemView.findViewById<TextView>(R.id.messageTitleText)
@@ -32,5 +33,11 @@ class MessagesRecycleViewAdapter(private val messagesList: List<MessagesItemMode
 
     override fun getItemCount(): Int {
         return messagesList.size
+    }
+
+    fun updateData( newPostsList : ArrayList<MessagesItemModel>){
+        messagesList.clear()
+        messagesList.addAll(newPostsList)
+        notifyDataSetChanged()
     }
 }

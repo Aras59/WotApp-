@@ -69,6 +69,31 @@ class ForumPostActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateView(postId : String ) {
+        val adapter = messageRecycleView.adapter as MessagesRecycleViewAdapter
+        val messagesModels = ArrayList<MessagesItemModel>()
+        firestore.collection("forumPostsDiscussion")
+            .document("messages").collection(postId)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val message = document.data["message"] as String?
+                    val creator = document.data["messageCreator"] as String?
+                    val date = document.data["messageDate"] as String?
+                    if(message != null && creator != null && date != null){
+                        messagesModels.add(MessagesItemModel(message,creator,date))
+                    }
+                }
+                if(messagesModels.isNotEmpty()) {
+                    adapter.updateData(messagesModels)
+                }
+
+            }
+            .addOnFailureListener {
+                Toast.makeText(this,"Problem with getting discussion from database!",Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private fun initMessagesTable(postID: String){
         val messagesModels = ArrayList<MessagesItemModel>()
         firestore.collection("forumPostsDiscussion")
@@ -111,7 +136,9 @@ class ForumPostActivity : AppCompatActivity() {
         firestore.collection("forumPostsDiscussion")
             .document("messages").collection(postID)
             .document(index.toString()).set(messageData)
-            .addOnSuccessListener { Toast.makeText(this,"Successfully added message to this post!",
+            .addOnSuccessListener {
+                updateView(postID)
+                Toast.makeText(this,"Successfully added message to this post!",
                 Toast.LENGTH_SHORT).show() }
             .addOnFailureListener { Toast.makeText(this,"Problem with adding message to this post!",Toast.LENGTH_SHORT).show() }
     }
