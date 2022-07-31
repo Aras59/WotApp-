@@ -319,12 +319,17 @@ class PlayerFragment : Fragment() {
         }
 
         trackerButton.setOnClickListener {
-            if("Follow player".equals(trackerButton.text.toString())){
+            if("Follow Player".equals(trackerButton.text.toString(),true)){
                 if (nickname != "") {
                     addPlayerToFollowingList(nickname)
+                        .addOnCompleteListener {
+                            trackerButton.text = "Unfollow Player"
+                            trackerButton.visibility = View.VISIBLE
+                            Toast.makeText(activity,"Successfully follow player!", Toast.LENGTH_SHORT).show()
+                        }
                     trackerButton.visibility = View.INVISIBLE
                 } else {
-                    Toast.makeText(activity,"Cannot follow this player!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity,"Cannot follow this player!", Toast.LENGTH_SHORT).show()
                 }
             }else{
                 removePlayerToFollowingList(accountId)
@@ -348,13 +353,12 @@ class PlayerFragment : Fragment() {
             "server" to server,
             "usernickname" to auth.currentUser!!.displayName,
         )
-        trackerButton.text = "Unfollow Player"
+
         return functions
             .getHttpsCallable("addToFollowAndFollowingDataBase")
             .call(data)
             .continueWith { task ->
                 val result = task.result?.data as String
-                Toast.makeText(activity, result, Toast.LENGTH_SHORT).show()
                 result
 
             }
