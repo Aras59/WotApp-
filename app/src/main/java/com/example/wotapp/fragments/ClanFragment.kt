@@ -144,17 +144,18 @@ class ClanFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {
                 if (s != null) {
                     if (s.length > 2) {
-                        val clansInterface: Call<Clan> = if (spinner.selectedItem.toString().equals("EU")) {
+                        val clansInterface: Call<Clan> = if (spinner.selectedItem.toString() == "EU") {
                             ClanInterface.createEU().getClan(clanAutoCompleteTextView.text.toString())
-                        } else if (spinner.selectedItem.toString().equals("RU")) {
+                        } else if (spinner.selectedItem.toString() == "RU") {
                             ClanInterface.createRU().getClan(clanAutoCompleteTextView.text.toString())
-                        } else if (spinner.selectedItem.toString().equals("ASIA")) {
+                        } else if (spinner.selectedItem.toString() == "ASIA") {
                             ClanInterface.createASIA().getClan(clanAutoCompleteTextView.text.toString())
                         } else {
                             ClanInterface.createNA().getClan(clanAutoCompleteTextView.text.toString())
                         }
 
-                        clansInterface.enqueue(object : Callback<Clan> { override fun onResponse(call: Call<Clan>, response: Response<Clan>) {
+                        clansInterface.enqueue(object : Callback<Clan> {
+                            override fun onResponse(call: Call<Clan>, response: Response<Clan>) {
                                 if (response.body()?.status!="error") {
                                     if (response.body()?.data?.isNotEmpty() == true) {
                                         val clanTags: List<String> = response.body()?.data?.map { it.tag }!!
@@ -168,7 +169,9 @@ class ClanFragment : Fragment() {
                                     }
                                 }
                             }
-                            override fun onFailure(call: Call<Clan>, t: Throwable) {}
+                            override fun onFailure(call: Call<Clan>, t: Throwable) {
+                                Toast.makeText(activity, "Network Connection Problem!", Toast.LENGTH_SHORT).show()
+                            }
                         })
                     }
                 }

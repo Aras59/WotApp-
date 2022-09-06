@@ -27,6 +27,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var signUpButton: Button
     private lateinit var spinner: Spinner
     private lateinit var serverSpinnerAdapter: ArrayAdapter<CharSequence>
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,28 +48,63 @@ class RegisterActivity : AppCompatActivity() {
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
             val nickname = editTextNickname.text.toString()
-            val usersFirestoreDataBase = FirebaseFirestore.getInstance()
-            val name = nickname.lowercase().replaceFirstChar { it.uppercase() }
-            usersFirestoreDataBase.collection("Users").document(name).get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val document = task.result
-                        if(!document.exists()) {
-                            if(email!="" && password !="" && nickname!="") {
-                                createAccount(email,password,nickname,spinner.selectedItem.toString())
-                            }
-                        }else{
-                            Toast.makeText(baseContext, "Authentication failed. User with this nickname already exist!",
-                                Toast.LENGTH_LONG).show()
-                        }
-                    }else {
-                        Toast.makeText(baseContext, "Authentication failed.",
+
+            val playersInterface = when(spinner.selectedItem.toString()){
+                "EU" -> {
+                    PlayersInterface.createEU()
+                }
+                "RU" -> {
+                    PlayersInterface.createRU()
+                }
+                "ASIA" -> {
+                    PlayersInterface.createASIA()
+                }
+                else -> {
+                    PlayersInterface.createNA()
+                }
+            }
+
+            val getPlayers = playersInterface.getPlayers(nickname)
+            getPlayers.enqueue(object : Callback<PlayerInfo> {
+                override fun onResponse(call: Call<PlayerInfo>, response: Response<PlayerInfo>) {
+                    if (response.body()?.status != "error" && response.body()?.meta?.count != 0) {
+                        val accountId = response.body()?.data?.first()?.account_id.toString()
+                        validateUser(accountId,email,password,nickname)
+                    }
+                    else {
+                        Toast.makeText(baseContext, "Account with this username not exist in WOT database.",
                             Toast.LENGTH_SHORT).show()
                     }
-            }
+                }
+                override fun onFailure(call: Call<PlayerInfo>, t: Throwable) {
+                    Toast.makeText(baseContext, "Problem with internet connection!",
+                        Toast.LENGTH_SHORT).show()
+                }
+            })
+
 
         }
 
+    }
+
+    private fun validateUser(accountID: String, email: String, password: String, nickname: String){
+        firestore.collection("Users").document(accountID).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val document = task.result
+                    if(!document.exists()) {
+                        if(email!="" && password !="" && nickname!="") {
+                            createAccount(email,password,nickname,spinner.selectedItem.toString())
+                        }
+                    }else{
+                        Toast.makeText(baseContext, "Authentication failed. User with this nickname already exist!",
+                            Toast.LENGTH_LONG).show()
+                    }
+                }else {
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     public override fun onStart() {
@@ -81,7 +117,6 @@ class RegisterActivity : AppCompatActivity() {
 
     }
     private fun createAccount(email: String, password: String, nickname: String, server: String) {
-        val firestore = FirebaseFirestore.getInstance()
         val playersInterface = when(server){
             "EU" -> {
                 PlayersInterface.createEU()
@@ -114,9 +149,9 @@ class RegisterActivity : AppCompatActivity() {
                     )
                     firestore.collection("followedusers").document(accountId)
                         .set(followedUserData)
-                    firestore.collection("followingusers").document(nickname)
+                    firestore.collection("followingusers").document(accountId)
                         .collection(server).document(accountId).set(followedUserData)
-                    createUser(email, password, server, nickname, firestore)
+                    createUser(email, password,accountId, server, nickname, firestore)
                 }
                 else {
                     Toast.makeText(baseContext, "Account with this username not exist in WOT database.",
@@ -133,7 +168,8 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    private fun createUser(email: String, password: String, server: String, nickname: String, firestore: FirebaseFirestore){
+    private fun createUser(email: String, password: String,accountID:String , server: String,
+                           nickname: String, firestore: FirebaseFirestore) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -142,24 +178,18 @@ class RegisterActivity : AppCompatActivity() {
                         .setDisplayName(nickname)
                         .build()
                     user!!.updateProfile(profileUpdates)
-                    val userCredential = hashMapOf(
-                        "email" to email,
-                        "nickname" to nickname,
+                    val userCredential = hashMapOf("email" to email, "nickname" to nickname,
                         "server" to server,
                         "uID" to user.uid
                     )
-
-
                     firestore.collection("Users").document(server)
-                        .collection(nickname).document("data").set(userCredential)
+                        .collection(accountID).document("data").set(userCredential)
 
-                    Toast.makeText(baseContext, "Authentication Success.",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Authentication Success.", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
                 }
             }
     }

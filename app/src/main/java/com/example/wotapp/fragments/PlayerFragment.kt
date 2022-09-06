@@ -210,7 +210,6 @@ class PlayerFragment : Fragment() {
 
                                             getClanDetails.enqueue(object : Callback<ClanDetails> {
                                                 override fun onResponse(call: Call<ClanDetails>, response: Response<ClanDetails>) {
-
                                                     val logoUrl = response.body()!!.clan[playerClanID.toString()]?.emblems?.x195?.portal.toString()
                                                     playerClanNameTextView.text = StringBuilder(" ["+response.body()?.clan
                                                         ?.get(playerClanID.toString())?.tag+"] "+response.body()

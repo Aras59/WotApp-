@@ -75,6 +75,7 @@ class NewPostForumActivity : AppCompatActivity() {
             Random(
                 LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
             ).nextLong())
+        //TODO: check post with this id exist
 
         firestore.collection("forumPosts").document(category)
             .collection("post").document(generatePostId.toString()).set(data)
